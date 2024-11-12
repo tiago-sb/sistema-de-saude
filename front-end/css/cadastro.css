@@ -1,0 +1,123 @@
+:root {
+  --cor-azul: #6394FF;
+  --cor-cinza: #EDEDED;
+  --cor-cinza-escuro: #8E8E8E;
+  --cor-branco: #f9f9f9;
+}
+
+section.cadastro-user {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+}
+
+section.cadastro-user img {
+  width: 7rem;
+}
+
+section div:nth-child(2) {
+  width: 40rem;
+}
+
+section div:nth-child(2) > h2, 
+section div:nth-child(2) > p {
+  text-align: center;
+}
+
+section div:nth-child(2) > p {
+  color: var(--cor-cinza-escuro);
+  padding: .5rem;
+}
+
+.formulario-cadastro {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+.formulario-cadastro h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.formulario-cadastro label {
+  font-size: 9pt;
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+div:nth-child(2) form div {
+  width: 100%;
+  border-radius: 4px;
+  overflow-x: hidden;
+  display: flex;
+  gap: 1rem;
+  margin: .3rem 0;
+}
+
+div:nth-child(2) form div.radio-escolha {
+  padding: 10px;
+  background-color: var(--cor-azul);
+  display: flex;
+  justify-content: space-between;
+}
+
+div:nth-child(2) form div.radio-escolha label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--cor-branco);
+}
+
+.formulario-cadastro input[type="text"],
+.formulario-cadastro input[type="email"],
+.formulario-cadastro input[type="password"],
+.formulario-cadastro input[type="tel"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 14px;
+  font-weight: bold;
+  font-family: Sansation;
+}
+
+.formulario-cadastro .btn-avancar {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: var(--cor-azul);
+  color: white;
+  transition: background-color 0.3s;
+  font-family: Sansation;
+}
+
+.formulario-cadastro .btn-avancar:hover {
+  background-color: #527ACC;
+}
+
+body section div:nth-child(3) {
+  margin-top: 15px;
+}
+
+a {
+  color: var(--cor-azul);
+  font-weight: bold;
+  transition: all ease-in-out .2s;
+}
+
+a:hover {
+  color: #527ACC;
+}
