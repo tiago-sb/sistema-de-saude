@@ -6,6 +6,7 @@
 }
 
 section.cadastro-user {
+  margin-top: .5rem;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
@@ -120,4 +121,44 @@ a {
 
 a:hover {
   color: #527ACC;
+}
+
+label {
+  margin-bottom: .5rem;
+}
+
+.form-row {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  box-sizing: border-box;
+  justify-content: space-between;
+}
+
+div:nth-child(2) form div {
+  margin-bottom: 15px;
+}
+
+#dia, #mes, #ano, #tipo-sanguineo,
+#altura, #peso, #bairro, #cidade, 
+#estado, #pais, #numero {
+  width: 100%;
+  padding: 2.5px 0 2.5px 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 14px;
+  color: black;
+  font-weight: bold;
+  font-family: Sansation;
+}
+
+div:nth-child(2) form div.form-row.endereco {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+#pais { 
+  grid-column: 1 / 3;
+  grid-row: 2 / 2;
 }

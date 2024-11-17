@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema Unificado de Gestão para Postos de Saúde</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/cadastro.css">
+  <link rel="shortcut icon" href="../images/icone.ico" type="image/x-icon">
+</head>
+<body>
+  <section class="cadastro-user">
+    <img src="../images/logo.png" alt="logo do projeto" title="logo do projeto">
+    <div>
+      <h2>Cadastro</h2>
+      <p>É rápido, seguro e fácil.</p>
+      <form action="" class="formulario-cadastro">
+        <label for="cnpj">Seu CNPJ:</label>
+        <input type="text" id="cnpj" name="cnpj" maxlength="18" placeholder="00.000.000/0000-00" required>
+        <label for="">Endereço:</label> 
+        <div class="form-row endereco">
+          <select name="bairro" id="bairro" required>
+            <option value="" disabled selected>Bairro</option>
+          </select>
+          <select name="cidade" id="cidade" required>
+            <option value="" disabled selected>Cidade</option>
+          </select>
+          <select name="estado" id="estado" required>
+            <option value="" disabled selected>Estado</option>
+          </select>
+          <select name="pais" id="pais" required class="pais">
+            <option value="" disabled selected>País</option>
+          </select>
+          <input type="number" name="numero" id="numero" placeholder="Número" min="1" required>
+        </div>
+        <button type="submit" class="btn-avancar">Avançar</button>
+      </form>
+    </div>
+    <div>
+        <p>Já possui uma conta? <a href="index.html">conecte-se</a></p>
+    </div>
+  </section>
+  <footer>
+    <label>
+      <p>&copy; 2024 Sistema Unificado de Gestão para Postos de Saúde</p>
+    </label>
+  </footer>
+</body>
+</html>
