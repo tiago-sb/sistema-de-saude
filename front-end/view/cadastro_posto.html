@@ -16,15 +16,13 @@
       <p>É rápido, seguro e fácil.</p>
       <form action="" class="formulario-cadastro">
         <label for="cnpj">Seu CNPJ:</label>
-        <input type="text" id="cnpj" name="cnpj" maxlength="18" placeholder="00.000.000/0000-00" required>
+        <div class="form-row">
+          <input type="text" id="cnpj" name="cnpj" maxlength="18" placeholder="00.000.000/0000-00" required>
+        </div>
         <label for="">Endereço:</label> 
         <div class="form-row endereco">
-          <select name="bairro" id="bairro" required>
-            <option value="" disabled selected>Bairro</option>
-          </select>
-          <select name="cidade" id="cidade" required>
-            <option value="" disabled selected>Cidade</option>
-          </select>
+          <input type="text" name="bairro" id="bairro" required placeholder="Bairro">
+          <input type="text" name="cidade" id="cidade" required placeholder="Cidade">
           <select name="estado" id="estado" required>
             <option value="" disabled selected>Estado</option>
           </select>
@@ -45,5 +43,6 @@
       <p>&copy; 2024 Sistema Unificado de Gestão para Postos de Saúde</p>
     </label>
   </footer>
+  <script src="../js/cadastro.js"></script>
 </body>
 </html>

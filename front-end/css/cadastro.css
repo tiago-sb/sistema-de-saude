@@ -82,7 +82,6 @@ div:nth-child(2) form div.radio-escolha label {
 .formulario-cadastro input[type="tel"] {
   width: 100%;
   padding: 10px;
-  margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
@@ -148,7 +147,6 @@ div:nth-child(2) form div {
   border-radius: 4px;
   box-sizing: border-box;
   font-size: 14px;
-  color: black;
   font-weight: bold;
   font-family: Sansation;
 }

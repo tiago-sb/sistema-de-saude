@@ -16,9 +16,11 @@
       <p>É rápido, seguro e fácil.</p>
       <form action="" class="formulario-cadastro">
         <label for="nome">Seu Cpf:</label>
-        <input type="text" id="nome" name="nome" required placeholder="Cpf">
+        <div class="form-row"><input type="text" id="nome" name="nome" required placeholder="Cpf"></div>
         <label for="email">Seu Número Nacional de Saúde:</label>
-        <input type="email" id="email" name="email" required placeholder="Número do Cartão Nacional de Saúde">
+        <div class="form-row">
+          <input type="email" id="email" name="email" required placeholder="Número do Cartão Nacional de Saúde">
+        </div>
         <label for="">Data de Nascimento:</label>
         <div class="form-row">
           <select name="dia" id="dia" required>
@@ -61,12 +63,8 @@
         </div>
         <label for="">Endereço:</label> 
         <div class="form-row endereco">
-          <select name="bairro" id="bairro" required>
-            <option value="" disabled selected>Bairro</option>
-          </select>
-          <select name="cidade" id="cidade" required>
-            <option value="" disabled selected>Cidade</option>
-          </select>
+          <input type="text" name="bairro" id="bairro" required placeholder="Bairro">
+          <input type="text" name="cidade" id="cidade" required placeholder="Cidade">
           <select name="estado" id="estado" required>
             <option value="" disabled selected>Estado</option>
           </select>
