@@ -8,11 +8,13 @@
   <link rel="stylesheet" href="../css/inicio.css">
   <link rel="shortcut icon" href="../images/icone.ico" type="image/x-icon">
 </head>
-<body>
+<body data-page="home">
   <header>
     <nav>
       <div class="busca-elementos">
-        <img src="../images/logo.png" alt="logo do projeto" title="logo do projeto">
+        <a href="tela_inicio_paciente.html">
+          <img src="../images/logo.png" alt="logo do projeto" title="logo do projeto">
+        </a>
         <div class="input-container">
           <input type="text" id="search-input" placeholder="Pesquisar..." />
           <button id="search-button" class="input-icon">
@@ -21,24 +23,30 @@
         </div>
       </div>
       <ul class="menu-navegacao"> 
-        <li>
-          <div class="elementos"> 
-            <img src="../images/home.png" alt="Início" title="Aba inicial">
-            <p>Início</p>
-          </div>
-        </li>
-        <li>
-          <div class="elementos">
-            <img src="../images/notificacao.png" alt="Notificações" title="Aba de Notificações">
-            <p>Notificações</p>
-          </div>
-        </li>
-        <li>
-          <div class="elementos">
-            <img src="../images/user.png" alt="Menu de perfil" title="Menu de Perfil">
-            <p>Perfil</p>
-          </div>
-        </li>
+          <li>
+            <a href="tela_inicio_paciente.html" class="menu-item" data-page="home">
+              <div class="elementos">
+                <img src="../images/home.png" alt="Início" title="Aba inicial">
+                <p>Início</p>
+              </div>
+            </a>  
+          </li>
+          <li>
+            <a href="notificacoes.html" class="menu-item" data-page="notificacoes">
+              <div class="elementos">
+                <img src="../images/notificacao.png" alt="Notificações" title="Aba de Notificações">
+                <p>Notificações</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="perfil.html" class="menu-item" data-page="perfil">
+              <div class="elementos">
+                <img src="../images/user.png" alt="Menu de perfil" title="Menu de Perfil">
+                <p>Perfil</p>
+              </div>
+            </a>  
+          </li>
       </ul>
     </nav>
   </header>
@@ -52,5 +60,6 @@
       <p>&copy; 2024 Sistema Unificado de Gestão para Postos de Saúde</p>
     </span>
   </footer>
+  <script src="../js/inicio.js"></script>
 </body>
 </html>
