@@ -1,6 +1,7 @@
 :root {
   --cor-azul: #6394FF;
   --cor-cinza: #EDEDED;
+  --cor-cinza-claro: #D9D9D9;
   --cor-cinza-escuro: #8E8E8E;
   --cor-branco: #f9f9f9;
 }
@@ -24,9 +25,10 @@ div.busca-elementos {
   align-items: center;
 }
 
-nav > div > img {
+nav > div > a > img {
   width: 50px;
   height: 30px;
+  margin-right: 10px;
 }
 
 nav ul.menu-navegacao {
@@ -59,11 +61,11 @@ ul.menu-navegacao li div.elementos img {
   transition: all ease-in-out .5s;
 }
 
-ul.menu-navegacao li:hover div.elementos img {
+body > header > nav > ul > li > a.active > div.elementos > img {
   filter: brightness(0);
 }
 
-ul.menu-navegacao li:hover div.elementos p {
+body > header > nav > ul > li > a.active > div.elementos > p {
   color: black;
 }
 
@@ -109,4 +111,23 @@ ul.menu-navegacao div.elementos p {
 .input-container .input-icon img {
   width: 20px;
   height: 20px;
+}
+
+main.info-container {
+  width: 55rem;
+  border-radius: 10px;
+  margin: 2rem auto;
+  padding: 1rem;
+  text-align: center;
+  background-color: var(--cor-cinza-claro);
+}
+
+main.info-container img {
+  width: 9rem;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+main.info-container h3 {
+  margin-top: 1rem;
 }
