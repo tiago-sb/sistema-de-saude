@@ -18,8 +18,8 @@ CREATE TABLE IF NOT EXISTS pacientes (
     numero_cartao_sus VARCHAR(20) UNIQUE,
     data_nascimento DATE,
     tipo_sanguineo VARCHAR(5),
-    altura DECIMAL(3, 2),
-    peso DECIMAL(5, 2),
+    altura Float
+    peso float
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
 );
 
