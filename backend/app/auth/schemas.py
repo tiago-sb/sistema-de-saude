@@ -7,3 +7,8 @@ class UsuarioGeralCadastro(BaseModel):
     senha: str
     telefone: str
     tipo_usuario: str
+
+
+class Login(BaseModel):
+    email: str
+    senha: str
