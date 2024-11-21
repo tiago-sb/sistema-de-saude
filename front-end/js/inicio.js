@@ -34,3 +34,32 @@ document.addEventListener("DOMContentLoaded", () => {
     <p>${usuario.tipoSanguineo}</p>
   `
 })
+
+document.addEventListener("DOMContentLoaded", () => {
+  const menuTrigger = document.getElementById("configuracoes");
+  const submenu = document.getElementById("submenu");
+  const imagemMenu = document.querySelector("#configuracoes > div > img")
+  const textoMenu = document.querySelector("#configuracoes > div > p")
+
+  menuTrigger.addEventListener("click", (e) => {
+    e.preventDefault()
+    const visivel = submenu.style.display === "block"
+    submenu.style.display = visivel ? "none" : "block" // se ta visivel coloca invisivel
+  })
+
+  document.addEventListener("click", (e) => {
+    if (!menuTrigger.contains(e.target) && !submenu.contains(e.target)) {
+      submenu.style.display = "none" // uma vez mostrado o menu, caso o usuario clique em algum item ele some novamente
+    }
+  })
+
+  document.getElementById("logout").addEventListener("click", () => {
+    window.location.href = "index.html"
+  })
+
+  document.getElementById("update").addEventListener("click", () => {
+    // window.location.href = "personalizar.html"
+    alert("clicou em personalizar")
+  })
+});
+

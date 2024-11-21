@@ -16,9 +16,9 @@
           <img src="../images/logo.png" alt="logo do projeto" title="logo do projeto">
         </a>
         <div class="input-container">
-          <input type="text" id="search-input" placeholder="Pesquisar..." />
+          <input type="text" id="search-input" placeholder="Pesquisar" />
           <button id="search-button" class="input-icon">
-            <img src="../images/lupa.svg" alt="Ícone de Lupa"/>
+            <a href="busca.html"><img src="../images/lupa.svg" alt="Ícone de Lupa"/></a>
           </button>
         </div>
       </div>
@@ -47,9 +47,21 @@
               </div>
             </a>  
           </li>
+          <li>
+            <a href="#" class="menu-item" id="configuracoes">
+              <div class="elementos">
+                <img src="../images/sanduiche.png" alt="Menu" title="Menu">
+                <p>Configurações</p>
+              </div>
+            </a>  
+          </li>
       </ul>
     </nav>
   </header>
+  <ul class="submenu" id="submenu">
+    <li><button id="logout">Sair do sistema</button></li>
+    <li><button id="update">Atualizar seus dados</button></li>
+  </ul>
   <footer>
     <span>
       <a href="termos.html" target="_blank" rel="noopener noreferrer">Termos</a>
@@ -59,7 +71,9 @@
     <span>
       <p>&copy; 2024 Sistema Unificado de Gestão para Postos de Saúde</p>
     </span>
+  
   </footer>
   <script src="../js/inicio.js"></script>
+  <script src="../js/busca.js"></script>
 </body>
 </html>
