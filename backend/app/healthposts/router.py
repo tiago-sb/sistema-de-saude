@@ -40,3 +40,22 @@ def criar_posto_de_saude(body: PostoDeSaudeCadastro):
         conn.close()
 
     return {"id": posto_id, "message": "Posto de saúde criado com sucesso"}
+
+
+@router.get("/postos-de-saude")
+def listar_postos_de_saude():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    try:
+        cursor.execute("SELECT * FROM postos_de_saude;")
+        postos = cursor.fetchall()
+    except Exception as e:
+        raise HTTPException(
+            status_code=500, detail=f"Erro ao listar postos de saúde: {str(e)}"
+        ) from e
+    finally:
+        cursor.close()
+        conn.close()
+
+    return postos
