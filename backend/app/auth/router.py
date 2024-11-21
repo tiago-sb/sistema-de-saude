@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, status
 from app.database import get_db_connection
 from bcrypt import hashpw, gensalt, checkpw
-from app.auth.schemas import UsuarioGeralCadastro
+from app.auth.schemas import UsuarioGeralCadastro, Login
 
 
 router = APIRouter(tags=["auth"])
@@ -9,7 +9,7 @@ router = APIRouter(tags=["auth"])
 
 @router.post("/usuarios", status_code=status.HTTP_200_OK)
 async def criar_usuario(body: UsuarioGeralCadastro):
-    if body.tipo_usuario.capitalize() not in ["Paciente", "PostoDeSaude"]:
+    if body.tipo_usuario not in ["Paciente", "PostoDeSaude"]:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail="Tipo de usuário inválido"
         )
@@ -32,14 +32,16 @@ async def criar_usuario(body: UsuarioGeralCadastro):
                 body.email,
                 senha_hash,
                 body.telefone,
-                body.tipo_usuario.capitalize(),
+                body.tipo_usuario,
             ),
         )
         user_id = cursor.fetchone()["id"]
         conn.commit()
     except Exception as e:
         conn.rollback()
-        raise HTTPException(status_code=500, detail=f"Erro ao criar usuário: {str(e)}") from e
+        raise HTTPException(
+            status_code=500, detail=f"Erro ao criar usuário: {str(e)}"
+        ) from e
     finally:
         cursor.close()
         conn.close()
@@ -48,16 +50,16 @@ async def criar_usuario(body: UsuarioGeralCadastro):
 
 
 @router.post("/login")
-def login(email: str, senha: str):
+def login(body: Login):
     conn = get_db_connection()
     cursor = conn.cursor()
 
     try:
         cursor.execute(
             """
-            SELECT id, senha_hash FROM usuarios WHERE email = %s;
+            SELECT * FROM usuarios WHERE email = %s;
             """,
-            (email,),
+            (body.email, )
         )
         usuario = cursor.fetchone()
 
@@ -67,13 +69,93 @@ def login(email: str, senha: str):
         senha_hash = usuario["senha_hash"]
 
         # Verificar senha
-        if not checkpw(senha.encode("utf-8"), senha_hash.encode("utf-8")):
+        if not checkpw(body.senha.encode("utf-8"), senha_hash.encode("utf-8")):
             raise HTTPException(status_code=400, detail="Credenciais inválidas")
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Erro ao realizar login: {str(e)}") from e
+        raise HTTPException(
+            status_code=500, detail=f"Erro ao realizar login: {str(e)}"
+        ) from e
     finally:
         cursor.close()
         conn.close()
 
-    return {"message": "Login bem-sucedido"}
+    dados = {
+        "id": usuario["id"],
+        "email": body.email,
+        "nome_completo": usuario["nome_completo"],
+        "telefone": usuario["telefone"],
+        "tipo_usuario": usuario["tipo_usuario"],
+    }
+
+    return dados
+
+
+# obter os dados do usuário somado ao tipo de usuário (Paciente ou PostoDeSaude) e retornar o usuário com as informações do tipo de usuário
+@router.get("/usuarios/{user_id}")
+def obter_usuario(user_id: int):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    try:
+        cursor.execute(
+            """
+            SELECT u.id, u.nome_completo, u.email, u.telefone, u.tipo_usuario,
+                   p.id AS paciente_id, p.cpf, p.numero_cartao_sus, p.data_nascimento, p.tipo_sanguineo, p.altura, p.peso,
+                   ps.id AS posto_id, ps.cnpj, ps.bairro, ps.cidade, ps.estado, ps.cep, ps.pais
+            FROM usuarios u
+            LEFT JOIN pacientes p ON u.id = p.usuario_id
+            LEFT JOIN postos_de_saude ps ON u.id = ps.usuario_id
+            WHERE u.id = %s;
+            """,
+            (user_id,),
+        )
+        usuario = cursor.fetchone()
+
+        if not usuario:
+            raise HTTPException(status_code=404, detail="Usuário não encontrado")
+
+        if usuario["tipo_usuario"] == "Paciente":
+            usuario = {
+                "id": usuario["id"],
+                "nome_completo": usuario["nome_completo"],
+                "email": usuario["email"],
+                "telefone": usuario["telefone"],
+                "tipo_usuario": usuario["tipo_usuario"],
+                "paciente": {
+                    "id": usuario["paciente_id"],
+                    "cpf": usuario["cpf"],
+                    "numero_cartao_sus": usuario["numero_cartao_sus"],
+                    "data_nascimento": usuario["data_nascimento"],
+                    "tipo_sanguineo": usuario["tipo_sanguineo"],
+                    "altura": usuario["altura"],
+                    "peso": usuario["peso"],
+                },
+            }
+        elif usuario["tipo_usuario"] == "PostoDeSaude":
+            usuario = {
+                "id": usuario["id"],
+                "nome_completo": usuario["nome_completo"],
+                "email": usuario["email"],
+                "telefone": usuario["telefone"],
+                "tipo_usuario": usuario["tipo_usuario"],
+                "posto_de_saude": {
+                    "id": usuario["posto_id"],
+                    "cnpj": usuario["cnpj"],
+                    "bairro": usuario["bairro"],
+                    "cidade": usuario["cidade"],
+                    "estado": usuario["estado"],
+                    "cep": usuario["cep"],
+                    "pais": usuario["pais"],
+                },
+            }
+
+    except Exception as e:
+        raise HTTPException(
+            status_code=500, detail=f"Erro ao obter usuário: {str(e)}"
+        ) from e
+    finally:
+        cursor.close()
+        conn.close()
+
+    return usuario
