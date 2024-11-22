@@ -3,6 +3,7 @@ from fastapi import FastAPI, APIRouter
 from app.auth.router import router as auth_router
 from app.patients.router import router as patients
 from app.healthposts.router import router as healthposts
+from app.notifications.router import router as notifications
 
 from app.database import create_tables
 
@@ -32,5 +33,6 @@ router_v1.include_router(
     prefix="/pacientes",
 )
 router_v1.include_router(healthposts, prefix="/postos-de-saude")
+router_v1.include_router(notifications, prefix="/notificacoes")
 
 app.include_router(router_v1)
