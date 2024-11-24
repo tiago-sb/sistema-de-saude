@@ -63,12 +63,27 @@
     <!-- <li><button id="update">Atualizar seus dados</button></li> -->
   </ul>
   <main>
-    <section id="informacoes-paciente" class="info-container"></section>
-    <section id="informacoes-paciente-vacina" class="info-container-vacina">
-      <h3>Histórico de Vacinas</h3>
-    </section>
-    <section id="informacoes-paciente-dados" class="info-container-dados">
-      <h3>Total de vacinas</h3>
+    <section id="informacoes-posto" class="info-container"></section>
+    <section id="postagem-posto" class="info-container-vacina"> 
+      <form action=""> 
+        <div class="form-row endereco">
+          <input type="text" name="nome_campanha" id="nome_campanha" required placeholder="Digite o nome de uma nova campanha">
+        </div>
+        <hr>
+        <label for="">Endereço</label>
+        <div class="form-row"> 
+          <input type="text" name="bairro" id="bairro" required placeholder="Bairro">
+          <input type="text" name="cidade" id="cidade" required placeholder="Cidade">
+          <input type="text" name="estado" id="estado" required placeholder="estado">
+        </div>
+        <hr>
+        <div class="form-row row">
+          <input type="text" name="nome-vacina" id="nome-vacina" required placeholder="Digite o nome da vacina">
+          <input type="number" name="nome-vacina" id="nome-vacina" required placeholder="Quantidade">
+          <img src="../images/adicionar.png" alt="adicionar vacinas" srcset="adicionar vacinas" title="adicionar vacinas">
+        </div> 
+        <button type="submit">Postar</button>
+      </form>
     </section>
   </main>
   <footer class="baixo-inicio">
@@ -80,10 +95,8 @@
     <span>
       <p>&copy; 2024 Sistema Unificado de Gestão para Postos de Saúde</p>
     </span>
-  
   </footer>
   <script src="../js/inicio.js"></script>
   <script src="../js/busca.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 </html>

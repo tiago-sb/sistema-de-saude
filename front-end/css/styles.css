@@ -42,7 +42,3 @@ a {
   color: black;
   transition: all ease-in-out .5s;
 }
-
-a:hover {
-  color: var(--cor-cinza-escuro);
-}
