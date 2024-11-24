@@ -1,10 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const searchForm = document.querySelector("#search-input")
-  const botaoForm = document.querySelector("#search-button")
+  const input_pesquisa = document.querySelector("#search-input")
+  const botao_pesquisa = document.querySelector("#search-button")
   
-  botaoForm.addEventListener("click", (e) => {
+  botao_pesquisa.addEventListener("click", (e) => {
     e.preventDefault()
-    const query = searchForm.value.trim()
+    const query = input_pesquisa.value.trim()
     if (query) {
       window.location.href = `busca.html?q=${encodeURIComponent(query)}`
     }
@@ -12,18 +12,18 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 
 document.addEventListener("DOMContentLoaded", () => {
-  const resultsContainer = document.querySelector("#busca-results") 
+  const resultados_pesquisa = document.querySelector("#busca-results") 
   const params = new URLSearchParams(window.location.search)
   const query = params.get("q")
   
   if (query) {
-    resultsContainer.innerHTML = `
-      <h2>Resultados para: "${query}"</h2>
+    resultados_pesquisa.innerHTML = `
+      <h3>Resultados para: "${query}"</h3>
       <ul>
         <li>Resultado 1 relacionado a "${query}"</li>
       </ul>
     `
   } else {
-    resultsContainer.innerHTML = "<h2>Nenhum termo de busca foi informado.</h2>"
+    resultados_pesquisa.innerHTML = "<h3>Nenhum termo de busca foi informado.</h3>"
   }
 });
