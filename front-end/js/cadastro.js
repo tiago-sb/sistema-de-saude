@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", carregarPaises)
 document.addEventListener("DOMContentLoaded", carregarEstados)
+document.addEventListener("DOMContentLoaded", configuracoesImagem)
 
 async function carregarPaises() {
   try {
@@ -64,4 +65,22 @@ for (let i = ano_atual; i >= 1900; i--) {
   ano.appendChild(option)
 }
 
+function configuracoesImagem() {
+  const input_arquivo = document.getElementById("file-input")
+  const preview_imgagem = document.getElementById("preview-img")
+  const nome_documento = document.getElementById("file-name")
 
+  input_arquivo.addEventListener("change", (event) => {
+    const file = event.target.files[0]
+    if (file) {
+      nome_documento.textContent = file.name
+
+      const reader = new FileReader()
+      reader.onload = () => {
+        preview_imgagem.src = reader.result
+        preview_imgagem.style.display = "block"
+      }
+      reader.readAsDataURL(file)
+    }
+  })
+}

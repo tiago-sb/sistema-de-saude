@@ -15,18 +15,18 @@
       <h2>Cadastro de Paciente</h2>
       <p>É rápido, seguro e fácil.</p>
       <form action="" class="formulario-cadastro">
-        <label for="nome">Seu Cpf:</label>
+        <label for="nome">Seu Cpf: <span class="importante">*</span></label>
         <div class="form-row"><input type="text" id="nome" name="nome" required placeholder="Cpf"></div>
-        <label for="email">Seu Número Nacional de Saúde:</label>
+        <label for="email">Seu Número Nacional de Saúde: <span class="importante">*</span></label>
         <div class="form-row">
-          <input type="email" id="email" name="email" required placeholder="Número do Cartão Nacional de Saúde">
+          <input type="text" id="numero_sus" name="numero_sus" required placeholder="Número do Cartão Nacional de Saúde">
         </div>
         <label for="">Data de Nascimento:</label>
         <div class="form-row">
-          <select name="dia" id="dia" required>
+          <select name="dia" id="dia">
             <option value="" disabled selected>Dia</option>
           </select>
-          <select name="mes" id="mes" required>
+          <select name="mes" id="mes">
             <option value="" disabled selected>Mês</option>
             <option value="janeiro">Janeiro</option>
             <option value="fevereiro">Fevereiro</option>
@@ -47,7 +47,7 @@
         </div>
         <label for="">Dados pessoais:</label>
         <div class="form-row">
-          <select name="tipo-sanguineo" id="tipo-sanguineo" required>
+          <select name="tipo-sanguineo" id="tipo-sanguineo">
             <option value="" disabled selected>Tipo Sanguíneo</option>
             <option value="A+">A+</option>
             <option value="A-">A-</option>
@@ -58,33 +58,32 @@
             <option value="O+">O+</option>
             <option value="O-">O-</option>
           </select>
-          <input type="number" name="altura" id="altura" placeholder="Altura (cm)" min="50" max="250" required>
-          <input type="number" name="peso" id="peso" placeholder="Peso (kg)" min="2" max="300" required>
+          <input type="number" name="altura" id="altura" placeholder="Altura (cm)" min="50" max="250">
+          <input type="number" name="peso" id="peso" placeholder="Peso (kg)" min="2" max="300">
         </div>
         <label for="">Endereço:</label> 
         <div class="form-row endereco">
-          <input type="text" name="bairro" id="bairro" required placeholder="Bairro">
-          <input type="text" name="cidade" id="cidade" required placeholder="Cidade">
-          <select name="estado" id="estado" required>
+          <input type="text" name="bairro" id="bairro" placeholder="Bairro">
+          <input type="text" name="cidade" id="cidade" placeholder="Cidade">
+          <select name="estado" id="estado">
             <option value="" disabled selected>Estado</option>
           </select>
-          <select name="pais" id="pais" required class="pais">
+          <select name="pais" id="pais" class="pais">
             <option value="" disabled selected>País</option>
           </select>
-          <input type="number" name="numero" id="numero" placeholder="Número" min="1" required>
+          <input type="number" name="numero" id="numero" placeholder="Número" min="1">
         </div>
-        <button type="submit" class="btn-avancar">Avançar</button>
+        <div class="form-row">
+          <button type="submit" class="btn-voltar voltar-cadastro">Voltar</button>
+          <button type="submit" class="btn-avancar">Avançar</button>
+        </div>
       </form>
     </div>
     <div>
         <p>Já possui uma conta? <a href="index.html">conecte-se</a></p>
     </div>
   </section>
-  <footer>
-    <label>
-      <p>&copy; 2024 Sistema Unificado de Gestão para Postos de Saúde</p>
-    </label>
-  </footer>
+  <script src="../js/main.js"></script>
   <script src="../js/cadastro.js"></script>
 </body>
 </html>

@@ -82,6 +82,7 @@ div:nth-child(2) form div.radio-escolha label {
 .formulario-cadastro input[type="tel"] {
   width: 100%;
   padding: 10px;
+  margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
@@ -90,6 +91,11 @@ div:nth-child(2) form div.radio-escolha label {
   font-family: Sansation;
 }
 
+.importante {
+  color: red;
+}
+
+.file-label,
 .formulario-cadastro .btn-avancar {
   width: 100%;
   padding: 10px;
@@ -104,12 +110,40 @@ div:nth-child(2) form div.radio-escolha label {
   font-family: Sansation;
 }
 
+.btn-voltar {
+  width: 100%;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: Sansation;
+  cursor: pointer;
+  transition: all ease-in-out .3s;
+}
+
+.btn-voltar:hover {
+  color: var(--cor-branco);
+  background-color: #527ACC;
+}
+
+.file-label {
+  background-color: var(--cor-cinza-escuro);
+  text-align: center;
+}
+
+.formulario-cadastro .btn-avancar a {
+  color: var(--cor-branco);
+}
+
+.file-label:hover,
 .formulario-cadastro .btn-avancar:hover {
   background-color: #527ACC;
 }
 
 body section div:nth-child(3) {
-  margin-top: 15px;
+  margin: 15px;
 }
 
 a {
@@ -135,7 +169,7 @@ label {
 }
 
 div:nth-child(2) form div {
-  margin-bottom: 15px;
+  margin-bottom: 5px;
 }
 
 #dia, #mes, #ano, #tipo-sanguineo,
@@ -159,4 +193,23 @@ div:nth-child(2) form div.form-row.endereco {
 #pais { 
   grid-column: 1 / 3;
   grid-row: 2 / 2;
+}
+
+#preview,
+.file-upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+p#file-name {
+  font-family: Sansation;
+  text-align: center;
+}
+
+#preview-img {
+  max-width: 200px;
+  border-radius: 10px;
+  margin-top: 10px;
 }
