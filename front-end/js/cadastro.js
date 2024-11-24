@@ -1,6 +1,9 @@
 document.addEventListener("DOMContentLoaded", carregarPaises)
 document.addEventListener("DOMContentLoaded", carregarEstados)
 document.addEventListener("DOMContentLoaded", configuracoesImagem)
+document.querySelector("#cpf").addEventListener("blur", carragarCpf)
+document.getElementById("numero_sus").addEventListener("input", carregarNumeroSUS)
+document.getElementById("celular").addEventListener("input", carregarNumero)
 
 async function carregarPaises() {
   try {
@@ -63,6 +66,33 @@ for (let i = ano_atual; i >= 1900; i--) {
   option.value = i
   option.textContent = i
   ano.appendChild(option)
+}
+
+function carragarCpf(){
+  if(cpf.value) cpf.value = cpf.value.match(/.{1,3}/g).join(".").replace(/\.(?=[^.]*$)/,"-");
+}
+
+function carregarNumeroSUS(e) {
+  let value = e.target.value.replace(/\D/g, "")
+  value = value.slice(0, 15)
+  
+  const formattedValue = value
+      .replace(/(\d{3})(\d{4})(\d{4})(\d{4})/, "$1 $2 $3 $4")
+      .trim()
+
+  e.target.value = formattedValue;
+}
+
+function carregarNumero(e) {
+  let value = e.target.value.replace(/\D/g, "")
+
+  if (value.length <= 10) {
+      value = value.replace(/(\d{5})(\d{4})/, "$1-$2")
+  } else {
+      value = value.replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3")
+  }
+
+  e.target.value = value
 }
 
 function configuracoesImagem() {
