@@ -23,8 +23,8 @@ async def criar_usuario(body: UsuarioGeralCadastro):
     try:
         cursor.execute(
             """
-            INSERT INTO usuarios (nome_completo, email, senha_hash, telefone, tipo_usuario)
-            VALUES (%s, %s, %s, %s, %s)
+            INSERT INTO usuarios (nome_completo, email, senha_hash, telefone, tipo_usuario, url_profile)
+            VALUES (%s, %s, %s, %s, %s, %s)
             RETURNING id;
             """,
             (
@@ -33,6 +33,7 @@ async def criar_usuario(body: UsuarioGeralCadastro):
                 senha_hash,
                 body.telefone,
                 body.tipo_usuario,
+                body.url_profile,
             ),
         )
         user_id = cursor.fetchone()["id"]

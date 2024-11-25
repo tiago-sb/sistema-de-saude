@@ -6,6 +6,7 @@ class UsuarioGeralCadastro(BaseModel):
     email: str
     senha: str
     telefone: str
+    url_profile: str
     tipo_usuario: str
 
 

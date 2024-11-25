@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
     nome_completo VARCHAR(255) NOT NULL,
     senha_hash TEXT NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
+    url_profile TEXT,
     telefone VARCHAR(20),
     tipo_usuario VARCHAR(20) NOT NULL CHECK (tipo_usuario IN ('Paciente', 'PostoDeSaude')),
     criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
