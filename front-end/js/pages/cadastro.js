@@ -1,24 +1,27 @@
 document.addEventListener("DOMContentLoaded", carregarPaises)
 document.addEventListener("DOMContentLoaded", carregarEstados)
+
 document.addEventListener("DOMContentLoaded", configuracoesImagem)
-document.querySelector("#cpf").addEventListener("blur", carragarCpf)
+
+document.addEventListener("DOMContentLoaded", carregarDia)
+document.addEventListener("DOMContentLoaded", carregarAno)
+document.querySelector("#cpf").addEventListener("blur", carregarCpf)
 document.getElementById("numero_sus").addEventListener("input", carregarNumeroSUS)
-document.getElementById("celular").addEventListener("input", carregarNumero)
 
 async function carregarPaises() {
   try {
-    const response = await fetch("https://restcountries.com/v3.1/all")
-    const paises = await response.json()
+    const lista_paises = await fetch("https://restcountries.com/v3.1/all")
+    const paises = await lista_paises.json()
 
-    const paises_ordenados = paises.sort((a, b) =>
+    const lista_paises_ordenados = paises.sort((a, b) =>
       a.name.common.localeCompare(b.name.common)
     )
 
-    paises_ordenados.forEach((pais) => {
-      const option = document.createElement("option")
-      option.value = pais.cca2
-      option.textContent = pais.name.common
-      document.getElementById("pais").appendChild(option)
+    lista_paises_ordenados.forEach((pais) => {
+      const opcoes_pais = document.createElement("option")
+      opcoes_pais.value = pais.cca2
+      opcoes_pais.textContent = pais.name.common
+      document.getElementById("pais").appendChild(opcoes_pais)
     })
 
   } catch (error) {
@@ -28,71 +31,74 @@ async function carregarPaises() {
 
 async function carregarEstados() {
   try {
-    const response = await fetch("https://servicodados.ibge.gov.br/api/v1/localidades/estados")
-    const estados = await response.json()
+    const lista_estados = await fetch("https://servicodados.ibge.gov.br/api/v1/localidades/estados")
+    const estados = await lista_estados.json()
 
     
-    const estados_ordenados = estados.sort((a, b) =>
+    const lista_estados_ordenados = estados.sort((a, b) =>
       a.nome.localeCompare(b.nome)
     )
 
-    estados_ordenados.forEach((estado) => {
-      const option = document.createElement("option")
-      option.value = estado.sigla
-      option.textContent = estado.nome
-      document.getElementById("estado").appendChild(option)
+    lista_estados_ordenados.forEach((estado) => {
+      const opcao_estado = document.createElement("option")
+      opcao_estado.value = estado.sigla
+      opcao_estado.textContent = estado.nome
+      document.getElementById("estado").appendChild(opcao_estado)
     })
-
-    return estado.nome
   } catch (error) {
     console.error("Erro ao carregar estados")
   }
 }
 
-// preencher o option dos dias
-const dia = document.getElementById("dia")
-for (let i = 1; i <= 31; i++) {
-  const option = document.createElement("option")
-  option.value = i
-  option.textContent = String(i).padStart(2, "0")
-  dia.appendChild(option)
+function carregarDia(){
+  const dia = document.getElementById("dia")
+
+  for (let dia_mensal = 1; dia_mensal <= 31; dia_mensal++) {
+    const opcao_dia = document.createElement("option")
+    opcao_dia.value = dia_mensal
+    opcao_dia.textContent = String(dia_mensal).padStart(2, "0")
+    dia.appendChild(opcao_dia)
+  }
 }
 
-// Preencher o option dos anos (1900 - ano atual)
-const ano = document.getElementById("ano")
-const ano_atual = new Date().getFullYear()
-for (let i = ano_atual; i >= 1900; i--) {
-  const option = document.createElement("option")
-  option.value = i
-  option.textContent = i
-  ano.appendChild(option)
+function carregarAno(){
+  const ano = document.getElementById("ano")
+  const ano_atual = new Date().getFullYear()
+  
+  for (let ano_parcial = ano_atual; ano_parcial >= 1900; ano_parcial--) {
+    const opcao_ano = document.createElement("option")
+    opcao_ano.value = ano_parcial
+    opcao_ano.textContent = ano_parcial
+    ano.appendChild(opcao_ano)
+  }
 }
 
-function carragarCpf(){
-  if(cpf.value) cpf.value = cpf.value.match(/.{1,3}/g).join(".").replace(/\.(?=[^.]*$)/,"-");
+
+function carregarCpf() {
+  if (cpf.value) {
+    const cpfFormatado = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/ // Verifica se o CPF ja esta no formato correto { XXX.XXX.XXX-XX }
+    
+    if (!cpfFormatado.test(cpf.value)) {
+      cpf.value = cpf.value
+        .replace(/\D/g, '') // retira os valores nao numericos
+        .match(/.{1,3}/g) // divide o numero em 3 posicoes de um vetor
+        .join(".") // une eles com pontos
+        .replace(/\.(?=[^.]*$)/, "-") // substiti o ultimo ponto por hifen
+    }
+  }
 }
+
 
 function carregarNumeroSUS(e) {
-  let value = e.target.value.replace(/\D/g, "")
-  value = value.slice(0, 15)
+  let valor_input_sus = e.target.value
+  .replace(/\D/g, "") // remover os caracteres nao numericos do numero
+  .slice(0, 15) // limitacao de 15 digitos
   
-  const formattedValue = value
-      .replace(/(\d{3})(\d{4})(\d{4})(\d{4})/, "$1 $2 $3 $4")
-      .trim()
+  const valor_sus_formatado = valor_input_sus
+      .replace(/(\d{3})(\d{4})(\d{4})(\d{4})/, "$1 $2 $3 $4") // agrupa os digitos no formato correto com espacos
+      .trim() // percorre removendo os espacos extra
 
-  e.target.value = formattedValue;
-}
-
-function carregarNumero(e) {
-  let value = e.target.value.replace(/\D/g, "")
-
-  if (value.length <= 10) {
-      value = value.replace(/(\d{5})(\d{4})/, "$1-$2")
-  } else {
-      value = value.replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3")
-  }
-
-  e.target.value = value
+  e.target.value = valor_sus_formatado;
 }
 
 function configuracoesImagem() {

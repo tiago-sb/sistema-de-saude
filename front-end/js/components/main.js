@@ -5,11 +5,10 @@ const botao_voltar_cadastro = document.querySelector("div.form-row .voltar-cadas
 
 
 botao_avancar.addEventListener("click", () => {
-  const escolha = document.querySelector('input[name="tipo-usuario"]:checked');
+  const escolha_usuario = document.querySelector('input[name="tipo-usuario"]:checked');
 
-  if (escolha) {
-    escolha.value === "posto" ? window.location.href = "cadastro_posto.html" : window.location.href = "cadastro_paciente.html"
-    return
+  if (escolha_usuario) {
+    escolha_usuario.value === "posto" ? window.location.href = "cadastro_posto.html" : window.location.href = "cadastro_paciente.html"
   } else {
     alert("Por favor, escolha um tipo de usuário específico antes de continuar o cadastro!!");
   }
