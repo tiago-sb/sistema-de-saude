@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const container = document.getElementById("informacoes-paciente");
-  const foto_padrao = "../images/user.png"
+  const foto_padrao = "../../images/icones/user.png"
   
   container.innerHTML = `
     <img src="${usuario.foto || foto_padrao}" alt="Imagem de perfil">

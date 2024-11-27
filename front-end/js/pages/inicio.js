@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const container = document.getElementById("informacoes-paciente")
-  const foto_padrao = "../images/user.png"
+  const foto_padrao = "../../images/icones/user.png"
   
   container.innerHTML = `
     <img src="${usuario.foto || foto_padrao}" alt="Imagem de perfil">
@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
   })
 
   document.getElementById("logout").addEventListener("click", () => {
-    window.location.href = "index.html"
+    window.location.href = "../pages/index.html"
   })
 
   document.getElementById("update").addEventListener("click", () => {
@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   
   const container = document.getElementById("informacoes-posto")
-  const foto_padrao = "../images/user.png"
+  const foto_padrao = "../../images/icones/user.png"
   
   container.innerHTML = `
     <img src="${posto.foto || foto_padrao}" alt="Imagem de perfil do Posto">
@@ -159,7 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="form-row row">
           <input type="text" name="nome-vacina" required placeholder="Digite o nome da vacina">
           <input type="number" name="quantidade-vacina" required placeholder="Quantidade">
-          <img src="../images/adicionar.png" alt="Adicionar vacinas" title="Adicionar vacinas">
+          <img src="../../images/botoes/adicionar.png" alt="Adicionar vacinas" title="Adicionar vacinas">
         </div>
       `
       )

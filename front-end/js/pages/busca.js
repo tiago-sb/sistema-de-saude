@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault()
     const query = input_pesquisa.value.trim()
     if (query) {
-      window.location.href = `busca.html?q=${encodeURIComponent(query)}`
+      window.location.href = `../pages/busca.html?q=${encodeURIComponent(query)}`
     }
   })
 })

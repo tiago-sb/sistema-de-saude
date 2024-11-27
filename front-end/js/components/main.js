@@ -16,7 +16,7 @@ botao_avancar.addEventListener("click", () => {
 })
 
 botao_voltar.addEventListener("click", () => {
-  window.location.href = "index.html"
+  window.location.href = "../pages/index.html"
 })
 
 botao_voltar_cadastro.addEventListener("click", () => {

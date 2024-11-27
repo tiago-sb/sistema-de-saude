@@ -4,47 +4,47 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sistema Unificado de Gestão para Postos de Saúde</title>
-  <link rel="stylesheet" href="../css/styles.css">
-  <link rel="stylesheet" href="../css/inicio.css">
-  <link rel="stylesheet" href="../css/notificacao.css">
-  <link rel="stylesheet" href="../css/busca.css">
-  <link rel="shortcut icon" href="../images/icone.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../css/base/styles.css">
+  <link rel="stylesheet" href="../../css/pages/inicio.css">
+  <link rel="stylesheet" href="../../css/pages/notificacao.css">
+  <link rel="stylesheet" href="../../css/pages/busca.css">
+  <link rel="shortcut icon" href="../../images/logos/icone.ico" type="image/x-icon">
 </head>
 <body data-page="busca">
   <header>
     <nav>
       <div class="busca-elementos">
-        <a href="tela_inicio_paciente.html">
-          <img src="../images/logo.png" alt="logo do projeto" title="logo do projeto">
+        <a href="../dashborad/tela_inicio_paciente.html">
+          <img src="../../images/logos/logo.png" alt="logo do projeto" title="logo do projeto">
         </a>
         <div class="input-container"> 
           <input type="text" id="search-input" placeholder="Pesquisar" />
           <button id="search-button" class="input-icon">
-            <img src="../images/lupa.svg" alt="Ícone de Lupa"/>
+            <img src="../../images/botoes/lupa.svg" alt="Ícone de Lupa"/>
           </button>
         </div>
       </div>
       <ul class="menu-navegacao"> 
           <li>
-            <a href="tela_inicio_paciente.html" class="menu-item" data-page="home">
+            <a href="../dashboard/tela_inicio_paciente.html" class="menu-item" data-page="home">
               <div class="elementos">
-                <img src="../images/home.png" alt="Início" title="Aba inicial">
+                <img src="../../images/botoes/home.png" alt="Início" title="Aba inicial">
                 <p>Início</p>
               </div>
             </a>  
           </li>
           <li>
-            <a href="notificacoes.html" class="menu-item" data-page="notificacoes">
+            <a href="../pages/notificacoes.html" class="menu-item" data-page="notificacoes">
               <div class="elementos">
-                <img src="../images/notificacao.png" alt="Notificações" title="Aba de Notificações">
+                <img src="../../images/botoes/notificacao.png" alt="Notificações" title="Aba de Notificações">
                 <p>Notificações</p>
               </div>
             </a>
           </li>
           <li>
-            <a href="perfil.html" class="menu-item">
+            <a href="../pages/perfil.html" class="menu-item">
               <div class="elementos">
-                <img src="../images/user.png" alt="Menu de perfil" title="Menu de Perfil">
+                <img src="../../images/icones/user.png" alt="Menu de perfil" title="Menu de Perfil">
                 <p>Perfil</p>
               </div>
             </a>  
@@ -52,7 +52,7 @@
           <li>
             <a href="#" class="menu-item" id="configuracoes">
               <div class="elementos">
-                <img src="../images/sanduiche.png" alt="Menu" title="Menu">
+                <img src="../../images/botoes/sanduiche.png" alt="Menu" title="Menu">
                 <p>Configurações</p>
               </div>
             </a>  
@@ -66,7 +66,7 @@
   </ul>
   <main id="busca-results">
   </main>
-  <script src="../js/inicio.js"></script>
-  <script src="../js/busca.js"></script>
+  <script src="../../js/pages/inicio.js"></script>
+  <script src="../../js/pages/busca.js"></script>
 </body>
 </html>
