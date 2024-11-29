@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema Unificado de Gestão para Postos de Saúde</title>
+  <link rel="stylesheet" href="../../css/base/styles.css">
+  <link rel="stylesheet" href="../../css/pages/cadastro.css">
+  <link rel="shortcut icon" href="../../images/logos/icone.ico" type="image/x-icon">
+</head>
+<body>
+  <section class="cadastro-user">
+    <img src="../../images/logos/logo.png" alt="logo do projeto" title="logo do projeto">
+    <div>
+      <h2>Cadastro</h2>
+      <p>É rápido, seguro e fácil.</p>
+      <form action="" class="formulario-cadastro">
+        <label>Tipo de Usuário:</label>
+        <div class="radio-group">
+          <div class="radio-escolha">
+            <label for="paciente">Sou Paciente</label>
+            <input id="paciente" type="radio" name="tipo-usuario" value="paciente" required>
+          </div>
+          <div class="radio-escolha">
+            <label for="posto">Posto de Saúde</label>
+            <input id="posto" type="radio" name="tipo-usuario" value="posto" required>
+          </div>
+        </div>
+        <label for="nome">Seu Nome: <span class="importante">*</span></label>
+        <input type="text" id="nome" name="nome" required placeholder="Nome Completo">
+        <label for="email">Seu Email: <span class="importante">*</span></label>
+        <input type="email" id="email" name="email" required placeholder="Email">
+        <label for="senha">Sua Senha: <span class="importante">*</span></label>
+        <input type="password" id="senha" name="senha" required placeholder="Senha">
+        <label for="celular">Seu Celular: <span class="importante">*</span></label>
+        <input type="tel" id="celular" name="celular" required pattern="[0-9]{2} [0-9]{5}-[0-9]{4}" placeholder="Celular ou Telefone">
+        <div class="file-upload-container">
+          <label for="file-input" class="file-label">
+            Clique Aqui Para Adicionar Sua Foto
+          </label>
+          <input type="file" id="file-input" name="foto" accept="image/*" style="display: none;">
+          <div id="preview">
+            <p id="file-name">Nenhuma imagem selecionada</p>
+            <img id="preview-img" src="" alt="Pré-visualização da imagem" style="max-width: 100%; display: none;">
+          </div>
+        </div>
+        <div class="form-row">
+          <button type="submit" class="btn-voltar">Voltar</button>
+          <button type="submit" class="btn-avancar">Avançar</button>
+        </div>
+      </form>
+    </div>
+    <div>
+        <p>Já possui uma conta? <a href="../pages/index.html">conecte-se</a></p>
+    </div>
+  </section>
+  <script src="../../js/components/main.js"></script>
+  <script src="../../js/pages/cadastro.js"></script>
+</body>
+</html>
