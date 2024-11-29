@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS pacientes (
     tipo_sanguineo VARCHAR(5),
     altura Float,
     peso Float,
-    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
 );
 
 -- Tabela para postos de saúde
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS postos_de_saude (
     estado VARCHAR(2),
     cep VARCHAR(10),
     pais VARCHAR(100),
-    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
 );
 
 
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS historico_vacinas (
     unidade_saude VARCHAR(255) NOT NULL,
     criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     atualizado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
 );
 
 
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS campanhas_vacinas (
     id SERIAL PRIMARY KEY,
     campanha_id INT NOT NULL,
     vacina_nome VARCHAR(255) NOT NULL,
-    FOREIGN KEY (campanha_id) REFERENCES campanhas(id) ON DELETE CASCADE
+    FOREIGN KEY (campanha_id) REFERENCES campanhas(id)
 );
 
 
@@ -78,5 +78,5 @@ CREATE TABLE IF NOT EXISTS notificacoes (
     mensagem TEXT NOT NULL,
     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     lida BOOLEAN DEFAULT FALSE,
-    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
 );

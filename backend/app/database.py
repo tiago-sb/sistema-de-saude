@@ -5,8 +5,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-DATABASE_URL = "postgresql://myuser:mypassword@localhost/mydatabase"
-
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 def get_db_connection():
     try:
