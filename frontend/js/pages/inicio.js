@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const itens_menu = document.querySelectorAll(".menu-item")
   const pagina_atual = document.body.getAttribute("data-page")
-
+  
   itens_menu.forEach((item) => {
     const page = item.getAttribute("data-page")
     if (page === pagina_atual) {
@@ -64,19 +64,20 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 
 document.addEventListener("DOMContentLoaded", () => {
-  const posto = {
-    nome: "Nome do Posto",
-    localizacao: "Xxxxxxx, Xxxxxxx, Xxxxx",
-    foto: ""
+  const usuario = localStorage.getItem('usuario')
+  const posto_json = JSON.parse(usuario)
+
+  let container = document.getElementById('informacoes-paciente')
+  if(document.body.getAttribute("data-page") == "home") {
+    container = document.getElementById("informacoes-posto")
   }
-  
-  const container = document.getElementById("informacoes-posto")
+
   const foto_padrao = "../../images/icones/user.png"
   
   container.innerHTML = `
-    <img src="${posto.foto || foto_padrao}" alt="Imagem de perfil do Posto">
-    <h3>${posto.nome}</h3>
-    <p>${posto.localizacao}</p>
+    <img src="${foto_padrao}" alt="Imagem de perfil do Posto">
+    <h3>${posto_json.nome_completo}</h3>
+    <p>${posto_json.posto_de_saude.bairro}, ${posto_json.posto_de_saude.cidade}, ${posto_json.posto_de_saude.estado}</p>
   `
 })
 
@@ -96,11 +97,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (!resposta.ok) throw new Error("Erro ao buscar o histórico de vacinas.")
         
         const dados_estatisticos = await resposta.json()
-        if (dados_estatisticos && Array.isArray(dados_estatisticos.historico_vacinas)) {
-          modulo_historico_vacinas.innerHTML = `
+        
+        modulo_historico_vacinas.innerHTML = `
             <h3>Histórico de Vacinas</h3>
           `
-
+        if (dados_estatisticos && dados_estatisticos.historico_vacinas.length > 0) {
           const grid_vacina = document.createElement("div")
           grid_vacina.classList.add("vacinas-grid")
 
@@ -144,44 +145,58 @@ document.addEventListener("DOMContentLoaded", async () => {
 })
 
 document.addEventListener("DOMContentLoaded", () => {
-  let campanhas = [
-    { id: 1, nome: "Campanha X", bairro: "bairro x", cidade: "cidade x", estado: "estado x", vacinas: ["vacina x", 2400]},
-    { id: 2, nome: "Campanha Y", bairro: "bairro y", cidade: "cidade y", estado: "estado y", vacinas: ["vacina y", 1200]}
-  ]
-
   const modulo_historico_campanhas = document.getElementById("informacoes-paciente-posto")
+  const usuario = localStorage.getItem('usuario')
+  // const usuario_id = JSON.parse(usuario).id
 
-  const renderizarCampanhas = () => {
-    modulo_historico_campanhas.innerHTML = `
-      <h3>Histórico de Campanhas</h3>
-    `
+  const renderizarCampanhas = async () => {
+    if (usuario) {
+      try {
+        const resposta = await fetch(`http://127.0.0.1:8000/api/v1/postos-de-saude/campanhas`, {
+          method: "GET"
+        })
+        
+        if (!resposta.ok) throw new Error("Erro ao buscar o histórico de vacinas.")
+        
+        const dados_estatisticos = await resposta.json()
+        
+        modulo_historico_campanhas.innerHTML = `
+          <h3>Histórico de Campanhas</h3>
+        `
 
-    const grid_campanha = document.createElement("div")
-    grid_campanha.classList.add("vacinas-grid")
-
-    campanhas.forEach((campanha, index) => {
-      const card = document.createElement("div")
-      card.classList.add("vacina-card")
-       
-      card.innerHTML = `
-        <h4>${campanha.nome} - ${campanha.id}</h4>
-        <p>Endereço: ${campanha.bairro}, ${campanha.cidade}, ${campanha.estado}</p>
-        <button id="btn-excluir" class="btn-excluir" onclick="excluirCampanha(${index})">Excluir</button>
-      `
-      grid_campanha.appendChild(card)
-    })
-
-    modulo_historico_campanhas.appendChild(grid_campanha)
-  };
-
+        if (dados_estatisticos && dados_estatisticos.campanhas.length > 0){
+          const grid_campanha = document.createElement("div")
+          grid_campanha.classList.add("vacinas-grid")
+      
+          campanhas.forEach((campanha, index) => {
+            const card = document.createElement("div")
+            card.classList.add("vacina-card")
+             
+            // card.innerHTML = `
+            //   <h4>${campanha.nome} - ${campanha.id}</h4>
+            //   <p>Endereço: ${campanha.bairro}, ${campanha.cidade}, ${campanha.estado}</p>
+            //   <button id="btn-excluir" class="btn-excluir" onclick="excluirCampanha(${index})">Excluir</button>
+            // `
+            grid_campanha.appendChild(card)
+          })
+          modulo_historico_campanhas.appendChild(grid_campanha)
+        } else {
+          modulo_historico_campanhas.innerHTML = "<h3>Não há campanhas criadas por este posto</h3>"
+        }
+      } catch(error){
+        console.error(error)
+      }
+    }
+  }
+  
   excluirCampanha = (index) => {
     if (confirm("Tem certeza que deseja excluir esta campanha do seu histórico?")) {
       campanhas.splice(index, 1)
       renderizarCampanhas()
     }
   }
-
-  renderizarCampanhas()
+    
+  renderizarCampanhas()  
 })
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -197,7 +212,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (!resposta.ok) throw new Error("Erro ao buscar as estatísticas de vacinas.")
   
       const dados_estatisticos = await resposta.json()
-      console.log(dados_estatisticos, dados_estatisticos.total_vacinas, dados_estatisticos.vacinas_por_mes)
+      
       const container = document.getElementById("informacoes-paciente-dados")
       
       container.innerHTML = `
@@ -237,26 +252,53 @@ document.addEventListener("DOMContentLoaded", async () => {
 })
 
 document.addEventListener("DOMContentLoaded", () => {
-  const formulario_container = document.querySelector("#postagem-posto > form")
+  const botao_postar = document.querySelector("#form-campanhas > button")
+  
+  botao_postar.addEventListener("click", async (event) => {
+    event.preventDefault()
+    const usuario_json = localStorage.getItem("usuario")
 
-  formulario_container.addEventListener("click", (event) => { 
-    if (event.target.tagName === "IMG") {
-      const adicaoContainer = event.target.closest(".form-row-posto")
-      event.target.remove()
-
-      adicaoContainer.insertAdjacentHTML(
-        "afterend",
-        `
-        <div class="form-row-posto row">
-          <input type="text" name="nome-vacina" required placeholder="Digite o nome da vacina">
-          <input type="number" name="quantidade-vacina" required placeholder="Quantidade">
-          <img src="../../images/botoes/adicionar.png" alt="Adicionar vacinas" title="Adicionar vacinas">
-        </div>
-      `
-      )
+    if (usuario_json) {
+      const usuario = JSON.parse(usuario_json)
+      
+      const campanha = coletarDadosCampanha(usuario.posto_de_saude)
+      
+      if (!campanha) {
+        alert('Preencha todos os campos obrigatórios!')
+        return
+      }
+      
+      try {
+        // await cadastrarCampanha(campanha)
+        console.log(campanha) 
+        alert('Campanha cadastrada com sucesso!')
+        window.location.reload()
+      } catch (erro) {
+        alert('Erro ao cadastrar vacina.')
+      }
     }
   })
 })
+
+function coletarDadosCampanha() {
+  const titulo_campanha = document.getElementById('nome_campanha').value
+  const descricao_campanha = document.getElementById('descricao_campanha').value
+  const data_registro_inicio_campanha = document.getElementById('data_registro_inicio_campanha').value
+  const data_registro_final_campanha = document.getElementById('data_registro_final_campanha').value
+  const publico_alvo = document.getElementById('publico_alvo').value
+
+  return { titulo_campanha, descricao_campanha, data_registro_inicio_campanha, data_registro_final_campanha, publico_alvo }
+}
+
+async function cadastrarCampanha(dadosCampanha) {
+  const resposta = await fetch('http://127.0.0.1:8000/api/v1/postos-de-saude/campanhas', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(dadosCampanha),
+  })
+
+  if (!resposta.ok) throw new Error("Falha ao criar nova vacina!")
+}
 
 // cadastro de novas vacinas ao historico do paciente
 document.addEventListener("DOMContentLoaded", async () => {

@@ -12,49 +12,39 @@
   <header>
     <nav>
       <div class="busca-elementos">
-        <a href="tela_inicio_posto.html">
-          <img src="../../images/logos/logo.png" alt="logo do projeto" title="logo do projeto">
-        </a>
+        <img src="../../images/logos/logo.png" alt="logo do projeto" title="logo do projeto">
         <div class="input-container">
           <input type="text" id="search-input" placeholder="Pesquisar" />
           <button id="search-button" class="input-icon">
-            <a href="busca.html"><img src="../../images/botoes/lupa.svg" alt="Ícone de Lupa"/></a>
+            <img src="../../images/botoes/lupa.svg" alt="Ícone de Lupa"/>
           </button>
         </div>
       </div>
       <ul class="menu-navegacao"> 
-          <li>
-            <a href="../dashboard/tela_inicio_posto.html" class="menu-item" data-page="home">
-              <div class="elementos">
-                <img src="../../images/botoes/home.png" alt="Início" title="Aba inicial">
-                <p>Início</p>
-              </div>
-            </a>  
-          </li>
-          <li>
-            <a href="../pages/notificacoes.html" class="menu-item" data-page="notificacoes">
-              <div class="elementos">
-                <img src="../../images/botoes/notificacao.png" alt="Notificações" title="Aba de Notificações">
-                <p>Notificações</p>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="../pages/perfil.html" class="menu-item" data-page="perfil">
-              <div class="elementos">
-                <img src="../../images/icones/user.png" alt="Menu de perfil" title="Menu de Perfil">
-                <p>Perfil</p>
-              </div>
-            </a>  
-          </li>
-          <li>
-            <a href="#" class="menu-item" id="configuracoes">
-              <div class="elementos">
-                <img src="../../images/botoes/sanduiche.png" alt="Menu" title="Menu">
-                <p>Configurações</p>
-              </div>
-            </a>  
-          </li>
+        <li class="menu-item" data-page="home">
+          <div class="elementos">
+            <img src="../../images/botoes/home.png" alt="Início" title="Aba inicial">
+            <p>Início</p>
+          </div>
+        </li>
+        <li class="menu-item" data-page="notificacoes">
+          <div class="elementos">
+            <img src="../../images/botoes/notificacao.png" alt="Notificações" title="Aba de Notificações">
+            <p>Notificações</p>
+          </div>
+        </li>
+        <li class="menu-item" data-page="perfil">
+          <div class="elementos">
+            <img src="../../images/icones/user.png" alt="Menu de perfil" title="Menu de Perfil">
+            <p>Perfil</p>
+          </div>
+        </li>
+        <li class="menu-item" id="configuracoes">
+          <div class="elementos">
+            <img src="../../images/botoes/sanduiche.png" alt="Menu" title="Menu">
+            <p>Configurações</p>
+          </div>
+        </li>
       </ul>
     </nav>
   </header>
@@ -68,22 +58,26 @@
     </section>
     <section id="postagem-posto" class="info-container-vacina"> 
       <form action="" id="form-campanhas"> 
+        <label for="">Nome da Campanha:</label>
         <div class="form-row-posto endereco">
           <input type="text" name="nome_campanha" id="nome_campanha" required placeholder="Digite o nome de uma nova campanha">
         </div>
         <hr>
-        <label for="">Endereço</label>
-        <div class="form-row-posto"> 
-          <input type="text" name="bairro" id="bairro" required placeholder="Bairro">
-          <input type="text" name="cidade" id="cidade" required placeholder="Cidade">
-          <input type="text" name="estado" id="estado" required placeholder="estado">
+        <label for="">Descrição:</label>
+        <div class="form-row endereco">
+          <textarea name="descricao_campanha" id="descricao_campanha" required placeholder="Digite uma descrição da sua Campanha"></textarea>
         </div>
-        <hr>
-        <div class="form-row-posto row">
-          <input type="text" name="nome-vacina" id="nome-vacina" required placeholder="Digite o nome da vacina">
-          <input type="number" name="nome-vacina" id="nome-vacina" required placeholder="Quantidade">
-          <img src="../../images/botoes/adicionar.png" alt="adicionar vacinas" srcset="adicionar vacinas" title="adicionar vacinas">
-        </div> 
+        <label for="data_registro_inicio_campanha">Data de Início da Campanha:</label>
+        <div class="form-row row">
+          <input type="date" id="data_registro_inicio_campanha" name="data_registro_inicio_campanha" required>
+        </div>
+        <label for="data_registro_final_campanha">Data Final da Campanha:</label>
+        <div class="form-row row">
+          <input type="date" id="data_registro_final_campanha" name="data_registro_final_campanha" required>
+        </div>
+        <div class="form-row endereco">
+          <textarea name="publico_alvo" id="publico_alvo" placeholder="Liste o público alvo da sua Campanha"></textarea>
+        </div>
         <button type="submit">Postar</button>
       </form>
     </section>
@@ -100,5 +94,6 @@
   </footer>
   <script src="../../js/pages/inicio.js"></script>
   <script src="../../js/pages/busca.js"></script>
+  <script src="../../js/components/paginacao.js"></script>
 </body>
 </html>

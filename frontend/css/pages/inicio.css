@@ -25,12 +25,13 @@ div.busca-elementos {
   align-items: center;
 }
 
-nav > div > a > img {
-  width: 50px;
+nav > div > img {
+  width: 58px;
   height: 30px;
   margin-right: 10px;
   border-radius: 50%;
   overflow: hidden;
+  cursor: pointer;
 }
 
 nav ul.menu-navegacao {
@@ -63,11 +64,11 @@ ul.menu-navegacao li div.elementos img {
   transition: all ease-in-out .5s;
 }
 
-body > header > nav > ul > li > a.active > div.elementos > img {
+body > header > nav > ul > li.active > div.elementos > img {
   filter: brightness(0);
 }
 
-body > header > nav > ul > li > a.active > div.elementos > p {
+body > header > nav > ul > li.active > div.elementos > p {
   color: black;
 }
 
@@ -230,6 +231,7 @@ form div.form-row-posto {
   grid-template-columns: 1fr;
 }
 
+textarea,
 form div.form-row input,
 form div.form-row-posto input[type="text"],
 form div.form-row-posto input[type="number"] {
@@ -241,6 +243,11 @@ form div.form-row-posto input[type="number"] {
   box-sizing: border-box;
   font-weight: bold;
   font-family: Sansation;
+}
+
+textarea {
+  resize: vertical;
+  overflow: auto; 
 }
 
 section.info-container-vacina form label {

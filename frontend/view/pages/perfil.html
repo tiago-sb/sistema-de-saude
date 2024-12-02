@@ -12,9 +12,7 @@
   <header>
     <nav>
       <div class="busca-elementos">
-        <a href="../dashboard/tela_inicio_paciente.html">
-          <img src="../../images/logos/logo.png" alt="logo do projeto" title="logo do projeto">
-        </a>
+        <img src="../../images/logos/logo.png" alt="logo do projeto" title="logo do projeto">
         <div class="input-container">
           <input type="text" id="search-input" placeholder="Pesquisar" />
           <button id="search-button" class="input-icon">
@@ -23,38 +21,30 @@
         </div>
       </div>
       <ul class="menu-navegacao"> 
-          <li>
-            <a href="../dashboard/tela_inicio_paciente.html" class="menu-item" data-page="home">
-              <div class="elementos">
-                <img src="../../images/botoes/home.png" alt="Início" title="Aba inicial">
-                <p>Início</p>
-              </div>
-            </a>  
-          </li>
-          <li>
-            <a href="../pages/notificacoes.html" class="menu-item" data-page="notificacoes">
-              <div class="elementos">
-                <img src="../../images/botoes/notificacao.png" alt="Notificações" title="Aba de Notificações">
-                <p>Notificações</p>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="../pages/perfil.html" class="menu-item" data-page="perfil">
-              <div class="elementos">
-                <img src="../../images/icones/user.png" alt="Menu de perfil" title="Menu de Perfil">
-                <p>Perfil</p>
-              </div>
-            </a>  
-          </li>
-          <li>
-            <a href="#" class="menu-item" id="configuracoes">
-              <div class="elementos">
-                <img src="../../images/botoes/sanduiche.png" alt="Menu" title="Menu">
-                <p>Configurações</p>
-              </div>
-            </a>  
-          </li>
+        <li class="menu-item" data-page="home">
+          <div class="elementos">
+            <img src="../../images/botoes/home.png" alt="Início" title="Aba inicial">
+            <p>Início</p>
+          </div>
+        </li>
+        <li class="menu-item" data-page="notificacoes">
+          <div class="elementos">
+            <img src="../../images/botoes/notificacao.png" alt="Notificações" title="Aba de Notificações">
+            <p>Notificações</p>
+          </div>
+        </li>
+        <li class="menu-item" data-page="perfil">
+          <div class="elementos">
+            <img src="../../images/icones/user.png" alt="Menu de perfil" title="Menu de Perfil">
+            <p>Perfil</p>
+          </div>
+        </li>
+        <li class="menu-item" id="configuracoes">
+          <div class="elementos">
+            <img src="../../images/botoes/sanduiche.png" alt="Menu" title="Menu">
+            <p>Configurações</p>
+          </div>
+        </li>
       </ul>
     </nav>
   </header>
@@ -76,5 +66,6 @@
   </footer>
   <script src="../../js/pages/inicio.js"></script>
   <script src="../../js/pages/busca.js"></script>
+  <script src="../../js/components/paginacao.js"></script>
 </body>
 </html>

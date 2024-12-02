@@ -67,6 +67,7 @@ section.secao-central {
   width: 33rem;
   padding: 1rem;
   background-color: var(--cor-cinza-claro);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 section.secao-central hr {
