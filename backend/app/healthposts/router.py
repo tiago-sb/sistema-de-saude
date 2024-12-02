@@ -141,7 +141,7 @@ def listar_historico_vacinas(usuario_id: int):
     return {"usuario_id": usuario_id, "historico_vacinas": vacinas}
 
 
-@router.get("/historico-vacinas/estatisticas")
+@router.get("/historico-vacinas/estatisticas/{usuario_id}")
 def obter_estatisticas(usuario_id: int):
     """
     Retorna as estatísticas de vacinas para o usuário especificado.

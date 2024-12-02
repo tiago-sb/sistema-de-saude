@@ -11,27 +11,6 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 
 document.addEventListener("DOMContentLoaded", () => {
-  const usuario = {
-    nome: "Nome do Paciente",
-    dataNascimento: "00/00/0000",
-    localizacao: "Xxxxxxx, Xxxxxxx, Xxxxx",
-    tipoSanguineo: "X+",
-    foto: ""
-  }
-
-  const container = document.getElementById("informacoes-paciente")
-  const foto_padrao = "../../images/icones/user.png"
-  
-  container.innerHTML = `
-    <img src="${usuario.foto || foto_padrao}" alt="Imagem de perfil">
-    <h3>${usuario.nome}</h3>
-    <p>${usuario.dataNascimento}</p>
-    <p>${usuario.localizacao}</p>
-    <p>${usuario.tipoSanguineo}</p>
-  `
-})
-
-document.addEventListener("DOMContentLoaded", () => {
   const menu_configuracoes = document.getElementById("configuracoes");
   const submenu_configuracoes = document.getElementById("submenu");
 
@@ -57,6 +36,33 @@ document.addEventListener("DOMContentLoaded", () => {
   })
 })
 
+function formatarData(data) {
+  const [ano, mes, dia] = data.split("-")
+  return `${dia}/${mes}/${ano}`
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const usuario_json = localStorage.getItem("usuario")
+
+  if (usuario_json) {
+    const usuario = JSON.parse(usuario_json)
+    const paciente = usuario.paciente
+
+    const container = document.getElementById("informacoes-paciente")
+    const foto_padrao = "../../images/icones/user.png";
+    const data_formatada = formatarData(paciente.data_nascimento)
+
+    container.innerHTML = `
+      <img src="${paciente.foto || foto_padrao}" alt="Imagem de perfil">
+      <h3>${usuario.nome_completo}</h3>
+      <p>Data de Nascimento: ${data_formatada}</p>
+      <p>Tipo Sanguíneo: ${paciente.tipo_sanguineo}</p>
+    `
+  } else {
+    window.location.href = "../login/login.html";
+  }
+})
+
 document.addEventListener("DOMContentLoaded", () => {
   const posto = {
     nome: "Nome do Posto",
@@ -74,44 +80,62 @@ document.addEventListener("DOMContentLoaded", () => {
   `
 })
 
-document.addEventListener("DOMContentLoaded", () => {
-  let vacinas = [
-    { nome: "Vacina X", data: "10/08/2024", dose: 0.5, unidade: "Hospital São José" },
-    { nome: "Vacina Y", data: "11/05/2024", dose: 1.5, unidade: "HGE" },
-    { nome: "Vacina Z", data: "21/03/2024", dose: 1.2, unidade: "Unidade básica de saúde de Vitória da Conquista" }
-  ];
+// funcao para recuperar histórico de vacinas do usuario
+document.addEventListener("DOMContentLoaded", async () => {
+  const modulo_historico_vacinas = document.getElementById("informacoes-paciente-vacina")
+  const usuario = localStorage.getItem('usuario')
+  const usuario_id = JSON.parse(usuario).id
+  
+  const renderizarVacinas = async () => {
+    if (usuario) {
+      try {
+        const resposta = await fetch(`http://127.0.0.1:8000/api/v1/postos-de-saude/historico-vacinas/${usuario_id}`, {
+          method: "GET"
+        });
 
-  const modulo_historico_vacinas = document.getElementById("informacoes-paciente-vacina");
+        if (!resposta.ok) throw new Error("Erro ao buscar o histórico de vacinas.")
+        
+        const dados_estatisticos = await resposta.json()
+        if (dados_estatisticos && Array.isArray(dados_estatisticos.historico_vacinas)) {
+          modulo_historico_vacinas.innerHTML = `
+            <h3>Histórico de Vacinas</h3>
+          `
 
-  const renderizarVacinas = () => {
-    modulo_historico_vacinas.innerHTML = `
-      <h3>Histórico de Vacinas</h3>
-    `
+          const grid_vacina = document.createElement("div")
+          grid_vacina.classList.add("vacinas-grid")
 
-    const grid_vacina = document.createElement("div");
-    grid_vacina.classList.add("vacinas-grid");
+          dados_estatisticos.historico_vacinas.forEach((vacina, index) => {
+            const card = document.createElement("div");
+            card.classList.add("vacina-card");
+            const dataformatada = formatarData(vacina.data_aplicacao)
+            
+            card.innerHTML = `
+              <h4>${vacina.nome_vacina}</h4>
+              <p>Data: ${dataformatada}</p>
+              <p>Dose: ${vacina.dose} mL</p>
+              <p>Unidade: ${vacina.unidade_saude}</p>
+              <button id="btn-excluir" class="btn-excluir" onclick="excluirVacina(${index})">Excluir</button>
+            `;
 
-    vacinas.forEach((vacina, index) => {
-      const card = document.createElement("div");
-      card.classList.add("vacina-card")
-      
-      card.innerHTML = `
-        <h4>${vacina.nome}</h4>
-        <p>Data: ${vacina.data}</p>
-        <p>Dose: ${vacina.dose} mL</p>
-        <p>Unidade: ${vacina.unidade}</p>
-        <button id="btn-excluir" class="btn-excluir" onclick="excluirVacina(${index})">Excluir</button>
-      `
+            grid_vacina.appendChild(card)
+          })
+          
+          modulo_historico_vacinas.appendChild(grid_vacina)
+        } else {
+          modulo_historico_vacinas.innerHTML = "<h3>Não há vacinas registradas para este paciente</h3>"
+        }
+      } catch (erro) {
+        modulo_historico_vacinas.innerHTML = "<h3>Erro ao carregar o histórico de vacinas.</h3>"
+      }
+    }
+  }
 
-      grid_vacina.appendChild(card)
-    })
-
-    modulo_historico_vacinas.appendChild(grid_vacina)
-  };
-
-  excluirVacina = (index) => {
+  // Função para excluir vacina
+  const excluirVacina = (index) => {
     if (confirm("Tem certeza que deseja excluir esta vacina do seu histórico?")) {
-      vacinas.splice(index, 1)
+      // Lógica para excluir vacina, que você pode implementar se tiver um endpoint para exclusão
+      alert(`Vacina ${index} excluída (essa parte precisa de implementação no backend)`);
+      // Re-renderiza as vacinas após exclusão
       renderizarVacinas()
     }
   }
@@ -160,48 +184,56 @@ document.addEventListener("DOMContentLoaded", () => {
   renderizarCampanhas()
 })
 
-document.addEventListener("DOMContentLoaded", () => {
-  const dados_usuario = {
-    totalVacina: 3,
-    graficoMensal: {
-      janeiro: 0, fevereiro: 0, marco: 1, abril: 0, maio: 1, junho: 0, 
-      julho: 0, agosto: 1, setembro: 0, outubro: 0, novembro: 0, dezembro: 0
+document.addEventListener("DOMContentLoaded", async () => {
+  const usuario = localStorage.getItem('usuario')
+  const usuario_id = JSON.parse(usuario).id
+
+  if (usuario) {
+    try {
+      const resposta = await fetch(`http://127.0.0.1:8000/api/v1/postos-de-saude/historico-vacinas/estatisticas/${usuario_id}`, {
+        method: "GET"
+      })
+  
+      if (!resposta.ok) throw new Error("Erro ao buscar as estatísticas de vacinas.")
+  
+      const dados_estatisticos = await resposta.json()
+      console.log(dados_estatisticos, dados_estatisticos.total_vacinas, dados_estatisticos.vacinas_por_mes)
+      const container = document.getElementById("informacoes-paciente-dados")
+      
+      container.innerHTML = `
+        <div class="vacinas-total">
+          <h3>Total de Vacinas</h3>	
+          <p>${dados_estatisticos.total_vacinas}</p>
+        </div>
+        <div class="grafico-container">
+          <canvas id="grafico_mensal"></canvas>
+        </div>
+      `
+      
+      const ctx = document.getElementById('grafico_mensal').getContext('2d')
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: Object.keys(dados_estatisticos.vacinas_por_mes),
+          datasets: [{
+            label: 'Vacinas aplicadas', data: Object.values(dados_estatisticos.vacinas_por_mes), backgroundColor: '#6394FF', borderWidth: 1}
+          ]
+        },
+        options: {
+          responsive: true, plugins: { legend: { display: false },  tooltip: { enabled: true }
+          },
+          scales: {
+            x: { title: { display: true, text: 'Meses'}},
+            y: { title: { display: true, text: 'Vacinas'},beginAtZero: true}
+          },
+          title: {display: true, text: 'Vacinas Aplicadas', font: { size: 15, family: 'Sansation', weight: 'bold'}
+          }
+        }
+      })
+    } catch (erro) {
+      console.error("Erro:", erro.message)
     }
   }
-
-  const container = document.getElementById("informacoes-paciente-dados")
-
-  container.innerHTML = `
-    <div class="vacinas-total">
-      <h3>Total de Vacinas</h3>	
-      <p>${dados_usuario.totalVacina}</p>
-    </div>
-    <div class="grafico-container">
-      <canvas id="grafico_mensal"></canvas>
-    </div>
-  `
-
-  const ctx = document.getElementById('grafico_mensal').getContext('2d');
-  
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: Object.keys(dados_usuario.graficoMensal),
-      datasets: [{
-        label: 'Vacinas aplicadas', data: Object.values(dados_usuario.graficoMensal), backgroundColor: '#6394FF', borderWidth: 1}
-      ]
-    },
-    options: {
-      responsive: true, plugins: { legend: { display: false },  tooltip: { enabled: true }
-      },
-      scales: {
-        x: { title: { display: true, text: 'Meses'}},
-        y: { title: { display: true, text: 'Vacinas'},beginAtZero: true}
-      },
-      title: {display: true, text: 'Vacinas Aplicadas', font: { size: 15, family: 'Sansation', weight: 'bold'}
-      }
-    }
-  })
 })
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -225,3 +257,48 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   })
 })
+
+// cadastro de novas vacinas ao historico do paciente
+document.addEventListener("DOMContentLoaded", async () => {
+  const botao_registrar = document.querySelector("body > main > section:nth-child(4) > form > button")
+  
+  botao_registrar.addEventListener("click", async (event) => {
+    event.preventDefault()
+    const usuario = localStorage.getItem('usuario')
+    const usuario_id = JSON.parse(usuario).id
+
+    const vacina = coletarDadosVacina(usuario_id)
+    
+    if (!vacina) {
+      alert('Preencha todos os campos obrigatórios!')
+      return
+    }
+    
+    try {
+      await cadastrarVacina(vacina)
+      alert('Vacina cadastrada com sucesso!');
+      window.location.reload()
+    } catch (erro) {
+      alert('Erro ao cadastrar vacina.')
+    }
+  })
+})
+
+function coletarDadosVacina(usuario_id) {
+  const nome_vacina = document.getElementById('nome_registro_vacina').value
+  const data_aplicacao = document.getElementById('data_registro_vacina').value
+  const dose = document.getElementById('dose').value
+  const unidade_saude = document.getElementById('unidade_medica').value
+
+  return { usuario_id, nome_vacina, data_aplicacao, dose, unidade_saude }
+}
+
+async function cadastrarVacina(dadosVacina) {
+  const resposta = await fetch('http://127.0.0.1:8000/api/v1/postos-de-saude/historico-vacinas', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(dadosVacina),
+  })
+
+  if (!resposta.ok) throw new Error("Falha ao criar nova vacina!")
+}

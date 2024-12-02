@@ -197,6 +197,10 @@ informacoes-paciente,
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
+#informacoes-paciente-vacina h3 {
+  text-align: center;
+}
+
 main section.info-container-dados {
   grid-row: 3;
 }

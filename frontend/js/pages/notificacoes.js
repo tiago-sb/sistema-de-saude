@@ -31,23 +31,3 @@ document.addEventListener("DOMContentLoaded", () => {
 
   exibirConteudo("tudo")
 })
-
-document.addEventListener("DOMContentLoaded", () => {
-  const usuario = {
-    nome: "Nome do usuario",
-    dataNascimento: "00/00/0000",
-    localizacao: "Xxxxxxx, Xxxxxxx, Xxxxx",
-    tipoSanguineo: "X+",
-    foto: ""
-  }
-
-  const container = document.getElementById("informacoes-paciente");
-  const foto_padrao = "../../images/icones/user.png"
-  
-  container.innerHTML = `
-    <img src="${usuario.foto || foto_padrao}" alt="Imagem de perfil">
-    <h3>${usuario.nome}</h3>
-    <p>${usuario.localizacao}</p>
-    <p>Data de Nascimento: ${usuario.dataNascimento}</p>
-  `
-})

@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-DATABASE_URL = os.getenv("DATABASE_URL")
+DATABASE_URL = "postgres://neondb_owner:R4SCsT0KHmvf@ep-curly-hat-a6dxpmar-pooler.us-west-2.aws.neon.tech/neondb?sslmode=require"
 
 def get_db_connection():
     try:

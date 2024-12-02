@@ -14,26 +14,26 @@
     <div>
       <h2>Cadastro</h2>
       <p>É rápido, seguro e fácil.</p>
-      <form action="" class="formulario-cadastro">
+      <form class="formulario-cadastro" method="post">
         <label>Tipo de Usuário:</label>
         <div class="radio-group">
           <div class="radio-escolha">
             <label for="paciente">Sou Paciente</label>
-            <input id="paciente" type="radio" name="tipo-usuario" value="paciente" required>
+            <input id="paciente" type="radio" name="tipo-usuario" value="Paciente">
           </div>
           <div class="radio-escolha">
             <label for="posto">Posto de Saúde</label>
-            <input id="posto" type="radio" name="tipo-usuario" value="posto" required>
+            <input id="posto" type="radio" name="tipo-usuario" value="PostoDeSaude">
           </div>
         </div>
         <label for="nome">Seu Nome: <span class="importante">*</span></label>
-        <input type="text" id="nome" name="nome" required placeholder="Nome Completo">
+        <input type="text" id="nome" name="nome" placeholder="Nome Completo">
         <label for="email">Seu Email: <span class="importante">*</span></label>
-        <input type="email" id="email" name="email" required placeholder="Email">
+        <input type="email" id="email" name="email" placeholder="Email">
         <label for="senha">Sua Senha: <span class="importante">*</span></label>
-        <input type="password" id="senha" name="senha" required placeholder="Senha">
+        <input type="password" id="senha" name="senha" placeholder="Senha">
         <label for="celular">Seu Celular: <span class="importante">*</span></label>
-        <input type="tel" id="celular" name="celular" required pattern="[0-9]{2} [0-9]{5}-[0-9]{4}" placeholder="Celular ou Telefone">
+        <input type="tel" id="celular" name="celular" pattern="[0-9]{2} [0-9]{5}-[0-9]{4}" placeholder="Celular ou Telefone">
         <div class="file-upload-container">
           <label for="file-input" class="file-label">
             Clique Aqui Para Adicionar Sua Foto
@@ -56,5 +56,6 @@
   </section>
   <script src="../../js/components/main.js"></script>
   <script src="../../js/pages/cadastro.js"></script>
+  <script src="../../js/components/cadastro_schemas.js"></script>
 </body>
 </html>

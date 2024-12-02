@@ -70,19 +70,13 @@
       <h3>Total de vacinas</h3>
     </section>
     <section id="" class="info-container-vacina">
-      <h2>Registro de Dose</h2>
+      <h2>Registro de Vacina</h2>
         <form action="#" method="post">
-
-          <label for="id_paciente">ID do Paciente:</label>
+          <label for="nome_registro_vacina">Nome da Vacina:</label>
           <div class="form-row row">
-            <input type="text" id="id_paciente" name="id_paciente" required placeholder="Digite o ID do paciente">
+            <input type="text" id="nome_registro_vacina" name="nome" required placeholder="Digite o nome da vacina">
           </div>
-
-          <label for="nome_registro_vacina">Nome:</label>
-          <div class="form-row row">
-            <input type="text" id="nome_registro_vacina" name="nome" required placeholder="Digite o nome do paciente">
-          </div>
-
+          
           <label for="data_registro_vacina">Data:</label>
           <div class="form-row row">
             <input type="date" id="data_registro_vacina" name="data_registro_vacina" required>
@@ -90,7 +84,7 @@
 
           <label for="dose">Quantidade da Dose (mL):</label>
           <div class="form-row row">
-            <input type="number" id="dose" name="dose" step="0.01" min="0" required placeholder="Digite a quantidade da dose">
+            <input type="text" id="dose" name="dose" step="0.01" min="0" required placeholder="Digite a quantidade da dose">
           </div>
           
           <label for="unidade_medica">Unidade Médica:</label>
