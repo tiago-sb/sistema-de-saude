@@ -8,10 +8,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!email || !senha) {
       alert("Lembre-se de preencher todos os campos!");
-      return;
+      return
     }
 
     try {
+      const body = document.querySelector('body')
+      body.innerHTML = `<h1 style="text-align: center; margin-top: 10rem; color: #6394FF;">Carregando...</h1>`
+
       const resposta = await fetch("http://127.0.0.1:8000/api/v1/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },

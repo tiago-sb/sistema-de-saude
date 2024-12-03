@@ -11,8 +11,8 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 
 document.addEventListener("DOMContentLoaded", () => {
-  const menu_configuracoes = document.getElementById("configuracoes");
-  const submenu_configuracoes = document.getElementById("submenu");
+  const menu_configuracoes = document.getElementById("configuracoes")
+  const submenu_configuracoes = document.getElementById("submenu")
 
   menu_configuracoes.addEventListener("click", (e) => {
     e.preventDefault()
@@ -31,8 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
   })
 
   document.getElementById("update").addEventListener("click", () => {
-    // window.location.href = "personalizar.html"
-    alert("clicou em personalizar")
+    window.location.href = "../pages/atualizar.html"
   })
 })
 
@@ -90,6 +89,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const renderizarVacinas = async () => {
     if (usuario) {
       try {
+        modulo_historico_vacinas.innerHTML = "<h3>Carregando...</h3>"
         const resposta = await fetch(`http://127.0.0.1:8000/api/v1/postos-de-saude/historico-vacinas/${usuario_id}`, {
           method: "GET"
         });
@@ -152,6 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const renderizarCampanhas = async () => {
     if (usuario) {
       try {
+        modulo_historico_campanhas.innerHTML = "<h3>Carregando...</h3>"
         const resposta = await fetch(`http://127.0.0.1:8000/api/v1/postos-de-saude/campanhas`, {
           method: "GET"
         })
@@ -205,6 +206,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   if (usuario) {
     try {
+      const container = document.getElementById("informacoes-paciente-dados")
+      container.innerHTML = "<h3>Carregando...</h3>"
       const resposta = await fetch(`http://127.0.0.1:8000/api/v1/postos-de-saude/historico-vacinas/estatisticas/${usuario_id}`, {
         method: "GET"
       })
@@ -213,7 +216,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   
       const dados_estatisticos = await resposta.json()
       
-      const container = document.getElementById("informacoes-paciente-dados")
+      
       
       container.innerHTML = `
         <div class="vacinas-total">
