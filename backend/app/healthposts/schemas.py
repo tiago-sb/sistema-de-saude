@@ -12,6 +12,7 @@ class PostoDeSaudeCadastro(BaseModel):
     pais: str
 
 
+
 class CadastrarVacina(BaseModel):
     usuario_id: int
     nome_vacina: str
@@ -25,5 +26,5 @@ class CriarCampanha(BaseModel):
     descricao: str
     data_inicio: str
     data_fim: str
-
+    owner_id: int
     publico_alvo: Optional[str] = None
