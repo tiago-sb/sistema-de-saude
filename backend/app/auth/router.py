@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, status
 from app.database import get_db_connection
 from bcrypt import hashpw, gensalt, checkpw
-from app.auth.schemas import UsuarioGeralCadastro, Login
+from app.auth.schemas import UsuarioGeralAtualizacao, UsuarioGeralCadastro, Login
 
 
 router = APIRouter(tags=["auth"])
@@ -60,7 +60,7 @@ def login(body: Login):
             """
             SELECT * FROM usuarios WHERE email = %s;
             """,
-            (body.email, )
+            (body.email,),
         )
         usuario = cursor.fetchone()
 
@@ -160,3 +160,31 @@ def obter_usuario(user_id: int):
         conn.close()
 
     return usuario
+
+
+@router.put("/usuarios/{user_id}")
+def atualizar_usuario(user_id: int, body: UsuarioGeralAtualizacao):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    try:
+        cursor.execute(
+            """
+            UPDATE usuarios
+            SET nome_completo = %s, email = %s, telefone = %s, url_profile = %s
+            WHERE id = %s;
+            """,
+            (body.nome_completo, body.email, body.telefone, body.url_profile, user_id),
+        )
+        conn.commit()
+
+    except Exception as e:
+        conn.rollback()
+        raise HTTPException(
+            status_code=500, detail=f"Erro ao atualizar usuário: {str(e)}"
+        ) from e
+    finally:
+        cursor.close()
+        conn.close()
+
+    return {"message": "Usuário atualizado com sucesso"}
