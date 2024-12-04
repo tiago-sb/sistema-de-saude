@@ -57,12 +57,12 @@ CREATE TABLE IF NOT EXISTS campanhas (
     descricao TEXT NOT NULL,
     data_inicio DATE NOT NULL,
     data_fim DATE NOT NULL,
-    owner_id SERIAL NOT NULL,
+    owner_id INT NOT NULL,
     publico_alvo TEXT,
     criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    atualizado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    atualizado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
-    foreign key (owner_id) references usuarios(id)
+   FOREIGN KEY (owner_id) REFERENCES usuarios(id)
 );
 
 -- Se for necessário associar campanhas a vacinas específicas:
@@ -70,8 +70,8 @@ CREATE TABLE IF NOT EXISTS campanhas_vacinas (
     id SERIAL PRIMARY KEY,
     campanha_id INT NOT NULL,
     vacina_nome VARCHAR(255) NOT NULL,
-    owner_id SERIAL NOT NULL,
-    FOREIGN KEY (campanha_id) REFERENCES campanhas(id)
+    owner_id INT NOT NULL,
+    FOREIGN KEY (campanha_id) REFERENCES campanhas(id),
     FOREIGN KEY (owner_id) REFERENCES usuarios(id)
 );
 
