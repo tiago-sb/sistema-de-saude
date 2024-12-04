@@ -210,7 +210,7 @@ def criar_campanha(body: CriarCampanha):
     try:
         cursor.execute(
             """
-            INSERT INTO campanhas (titulo, descricao, data_inicio, data_fim, publico_alvo)
+            INSERT INTO campanhas (titulo, descricao, data_inicio, data_fim, publico_alvo, owner_id)
             VALUES (%s, %s, %s, %s, %s)
             RETURNING id;
             """,
@@ -220,6 +220,7 @@ def criar_campanha(body: CriarCampanha):
                 body.data_inicio,
                 body.data_fim,
                 body.publico_alvo,
+                body.owner_id,
             ),
         )
         campanha_id = cursor.fetchone()["id"]
@@ -267,7 +268,7 @@ def buscar_campanhas(
     descricao: str = None,
     data_inicio: str = None,
     data_fim: str = None,
-    ativo: bool = None
+    ativo: bool = None,
 ):
     """
     Busca campanhas com filtros opcionais.
@@ -309,9 +310,94 @@ def buscar_campanhas(
         cursor.execute(query, params)
         campanhas = cursor.fetchall()
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Erro ao buscar campanhas: {str(e)}")
+        raise HTTPException(
+            status_code=500, detail=f"Erro ao buscar campanhas: {str(e)}"
+        )
     finally:
         cursor.close()
         conn.close()
 
     return {"campanhas": campanhas}
+
+
+@router.get("/campanhas/{usuario_id}")
+def listar_campanhas_usuario(usuario_id: int):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    try:
+        cursor.execute(
+            """
+            SELECT id, titulo, descricao, data_inicio, data_fim, publico_alvo
+            FROM campanhas
+            WHERE owner_id = %s
+            ORDER BY data_inicio ASC;
+            """,
+            (usuario_id,),
+        )
+        campanhas = cursor.fetchall()
+    except Exception as e:
+        raise HTTPException(
+            status_code=500, detail=f"Erro ao listar campanhas: {str(e)}"
+        ) from e
+    finally:
+        cursor.close()
+        conn.close()
+
+    return {"campanhas": campanhas}
+
+
+@router.delete("/campanhas/{campanha_id}")
+def excluir_campanha(campanha_id: int):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    try:
+        cursor.execute(
+            """
+            DELETE FROM campanhas
+            WHERE id = %s
+            RETURNING id;
+            """,
+            (campanha_id,),
+        )
+        campanha_id = cursor.fetchone()["id"]
+        conn.commit()
+    except Exception as e:
+        conn.rollback()
+        raise HTTPException(
+            status_code=500, detail=f"Erro ao excluir campanha: {str(e)}"
+        ) from e
+    finally:
+        cursor.close()
+        conn.close()
+
+    return {"id": campanha_id, "message": "Campanha excluída com sucesso"}
+
+
+@router.delete("/historico-vacinas/{vacina_id}")
+def excluir_vacina(vacina_id: int):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    try:
+        cursor.execute(
+            """
+            DELETE FROM historico_vacinas
+            WHERE id = %s
+            RETURNING id;
+            """,
+            (vacina_id,),
+        )
+        vacina_id = cursor.fetchone()["id"]
+        conn.commit()
+    except Exception as e:
+        conn.rollback()
+        raise HTTPException(
+            status_code=500, detail=f"Erro ao excluir vacina: {str(e)}"
+        ) from e
+    finally:
+        cursor.close()
+        conn.close()
+
+    return {"id": vacina_id, "message": "Vacina excluída com sucesso"}
