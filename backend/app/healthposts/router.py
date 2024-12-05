@@ -268,7 +268,6 @@ def buscar_campanhas(
     descricao: str = None,
     data_inicio: str = None,
     data_fim: str = None,
-    ativo: bool = None,
 ):
     """
     Busca campanhas com filtros opcionais.
@@ -278,7 +277,7 @@ def buscar_campanhas(
 
     # Construir a query dinâmica
     query = """
-        SELECT id, titulo, descricao, data_inicio, data_fim, ativo
+        SELECT id, titulo, descricao, data_inicio, data_fim
         FROM campanhas
         WHERE TRUE
     """
@@ -299,10 +298,6 @@ def buscar_campanhas(
     if data_fim:
         query += " AND data_fim <= %s"
         params.append(data_fim)
-
-    if ativo is not None:
-        query += " AND ativo = %s"
-        params.append(ativo)
 
     query += " ORDER BY data_inicio DESC"
 
