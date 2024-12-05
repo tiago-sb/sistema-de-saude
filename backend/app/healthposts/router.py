@@ -211,7 +211,7 @@ def criar_campanha(body: CriarCampanha):
         cursor.execute(
             """
             INSERT INTO campanhas (titulo, descricao, data_inicio, data_fim, publico_alvo, owner_id)
-            VALUES (%s, %s, %s, %s, %s)
+            VALUES (%s, %s, %s, %s, %s, %s)
             RETURNING id;
             """,
             (
