@@ -18,3 +18,9 @@ main#busca-results {
 main#busca-results h2 {
   margin-bottom: 10px;
 }
+
+#busca-results > ul > li {
+  background-color: var(--cor-cinza-escuro);
+  border-radius: 10px;
+  padding: 10px;
+}

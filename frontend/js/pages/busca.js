@@ -23,20 +23,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function exibirResultadosBusca(termo) {
   try {
-    const resposta = await fetch(`http://127.0.0.1:8000/api/v1/campanhas?titulo=${encodeURIComponent(termo)}`)
+    resultados_pesquisa.innerHTML = "<h4>Carregando...</h4>"
+    const resposta = await fetch(`http://127.0.0.1:8000/api/v1/postos-de-saude/campanhas/busca?titulo=${encodeURIComponent(termo)}`)
     const campanhas = await resposta.json()
     
-    if (campanhas.length > 0) {
+    if (campanhas.campanhas.length > 0) {
       resultados_pesquisa.innerHTML = `
         <h3>Resultados para: "${termo}"</h3>
         <ul>
-          ${campanhas.map(campanha => `
+          ${campanhas.campanhas.map(campanha => `
             <li>
-              <h4>${campanha.titulo} - ${campanha.id}</h4>
-              <p>${campanha.descricao}</p>
+              <h4>${campanha.titulo} - ID ${campanha.id}</h4>
+              <p><strong>Local:</strong> ${campanha.descricao}</p>
               <p><strong>Data Início:</strong> ${formatarData(campanha.data_inicio)}</p>
               <p><strong>Data Fim:</strong> ${formatarData(campanha.data_fim)}</p>
             </li>
+            <hr>
           `).join("")}
         </ul>
       `

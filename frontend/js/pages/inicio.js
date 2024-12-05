@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const data_formatada = formatarData(paciente.data_nascimento)
     
     container.innerHTML = `
-      <img src="${paciente.foto || foto_padrao}" alt="Imagem de perfil">
+      <img src="${foto_padrao}" alt="Imagem de perfil">
       <h3>${usuario.nome_completo}</h3>
       <p>Data de Nascimento: ${data_formatada}</p>
       <p>Tipo Sanguíneo: ${paciente.tipo_sanguineo}</p>
