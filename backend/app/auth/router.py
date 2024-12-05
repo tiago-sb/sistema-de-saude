@@ -101,7 +101,7 @@ def obter_usuario(user_id: int):
     try:
         cursor.execute(
             """
-            SELECT u.id, u.nome_completo, u.email, u.telefone, u.tipo_usuario,
+            SELECT u.id, u.nome_completo, u.email, u.telefone, u.tipo_usuario, u.url_profile,
                    p.id AS paciente_id, p.cpf, p.numero_cartao_sus, p.data_nascimento, p.tipo_sanguineo, p.altura, p.peso,
                    ps.id AS posto_id, ps.cnpj, ps.bairro, ps.cidade, ps.estado, ps.cep, ps.pais
             FROM usuarios u
@@ -123,6 +123,7 @@ def obter_usuario(user_id: int):
                 "email": usuario["email"],
                 "telefone": usuario["telefone"],
                 "tipo_usuario": usuario["tipo_usuario"],
+                "url_profile": usuario["url_profile"],
                 "paciente": {
                     "id": usuario["paciente_id"],
                     "cpf": usuario["cpf"],
@@ -140,6 +141,7 @@ def obter_usuario(user_id: int):
                 "email": usuario["email"],
                 "telefone": usuario["telefone"],
                 "tipo_usuario": usuario["tipo_usuario"],
+                "url_profile": usuario["url_profile"],
                 "posto_de_saude": {
                     "id": usuario["posto_id"],
                     "cnpj": usuario["cnpj"],
