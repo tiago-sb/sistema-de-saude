@@ -35,9 +35,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const usuario = await respostaUsuario.json()
       localStorage.setItem("usuario", JSON.stringify(usuario))
-
+      
       const { tipo_usuario } = usuario
-      console.log(usuario, tipo_usuario)
+      
       if (tipo_usuario === "PostoDeSaude") {
         window.location.href = "../dashboard/tela_inicio_posto.html"
         return

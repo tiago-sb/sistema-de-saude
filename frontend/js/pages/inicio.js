@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const container = document.getElementById("informacoes-paciente")
     const foto_padrao = "../../images/icones/user.png";
     const data_formatada = formatarData(paciente.data_nascimento)
-
+    
     container.innerHTML = `
       <img src="${paciente.foto || foto_padrao}" alt="Imagem de perfil">
       <h3>${usuario.nome_completo}</h3>
@@ -86,6 +86,24 @@ document.addEventListener("DOMContentLoaded", async () => {
   const usuario = localStorage.getItem('usuario')
   const usuario_id = JSON.parse(usuario).id
   
+  window.excluirVacina = async (vacina_id) => {
+    if (confirm(`Tem certeza que deseja excluir a vacina?`)) {
+      try {
+        const resposta = await fetch(`http://127.0.0.1:8000/api/v1/postos-de-saude/historico-vacinas/${vacina_id}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+  
+        if (!resposta.ok) throw new Error('Erro ao excluir vacina')
+        window.location.reload()
+      } catch (erro) {
+        alert(`Erro ao excluir vacina: ${erro.message}`)
+      }
+    }
+  }
+
   const renderizarVacinas = async () => {
     if (usuario) {
       try {
@@ -99,13 +117,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         const dados_estatisticos = await resposta.json()
         
         modulo_historico_vacinas.innerHTML = `
-            <h3>Histórico de Vacinas</h3>
-          `
+          <h3>Histórico de Vacinas</h3>
+        `
+        
         if (dados_estatisticos && dados_estatisticos.historico_vacinas.length > 0) {
           const grid_vacina = document.createElement("div")
           grid_vacina.classList.add("vacinas-grid")
-
-          dados_estatisticos.historico_vacinas.forEach((vacina, index) => {
+          
+          dados_estatisticos.historico_vacinas.forEach((vacina) => {
             const card = document.createElement("div");
             card.classList.add("vacina-card");
             const dataformatada = formatarData(vacina.data_aplicacao)
@@ -115,8 +134,8 @@ document.addEventListener("DOMContentLoaded", async () => {
               <p>Data: ${dataformatada}</p>
               <p>Dose: ${vacina.dose} mL</p>
               <p>Unidade: ${vacina.unidade_saude}</p>
-              <button id="btn-excluir" class="btn-excluir" onclick="excluirVacina(${index})">Excluir</button>
-            `;
+              <button id="btn-excluir" class="btn-excluir" onClick="excluirVacina(${vacina.id})">Excluir</button>
+            `
 
             grid_vacina.appendChild(card)
           })
@@ -131,29 +150,38 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }
 
-  // Função para excluir vacina
-  const excluirVacina = (index) => {
-    if (confirm("Tem certeza que deseja excluir esta vacina do seu histórico?")) {
-      // Lógica para excluir vacina, que você pode implementar se tiver um endpoint para exclusão
-      alert(`Vacina ${index} excluída (essa parte precisa de implementação no backend)`);
-      // Re-renderiza as vacinas após exclusão
-      renderizarVacinas()
-    }
-  }
-
   renderizarVacinas()
 })
 
 document.addEventListener("DOMContentLoaded", () => {
   const modulo_historico_campanhas = document.getElementById("informacoes-paciente-posto")
   const usuario = localStorage.getItem('usuario')
-  // const usuario_id = JSON.parse(usuario).id
+  const usuario_id = JSON.parse(usuario)
+  const posto_info = usuario_id.posto_de_saude
+
+  window.excluirCampanha = async (campanha_id) => {
+    if (confirm(`Tem certeza que deseja excluir a campanha?`)) {
+      try {
+        const resposta = await fetch(`http://127.0.0.1:8000/api/v1/postos-de-saude/campanhas/${campanha_id}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+  
+        if (!resposta.ok) throw new Error('Erro ao excluir Campanha!')
+        window.location.reload()
+      } catch (erro) {
+        alert(`Erro ao campanha!`)
+      }
+    }
+  }
 
   const renderizarCampanhas = async () => {
     if (usuario) {
       try {
-        modulo_historico_campanhas.innerHTML = "<h3>Carregando...</h3>"
-        const resposta = await fetch(`http://127.0.0.1:8000/api/v1/postos-de-saude/campanhas`, {
+        modulo_historico_campanhas.innerHTML = `<h3 style="text-align: center;">Carregando...</h3>`
+        const resposta = await fetch(`http://127.0.0.1:8000/api/v1/postos-de-saude/campanhas/${usuario_id.id}`, {
           method: "GET"
         })
         
@@ -162,41 +190,36 @@ document.addEventListener("DOMContentLoaded", () => {
         const dados_estatisticos = await resposta.json()
         
         modulo_historico_campanhas.innerHTML = `
-          <h3>Histórico de Campanhas</h3>
+          <h3 style="text-align: center;">Histórico de Campanhas</h3>
         `
-
+        
         if (dados_estatisticos && dados_estatisticos.campanhas.length > 0){
           const grid_campanha = document.createElement("div")
           grid_campanha.classList.add("vacinas-grid")
       
-          campanhas.forEach((campanha, index) => {
+          dados_estatisticos.campanhas.forEach((campanha) => {
             const card = document.createElement("div")
             card.classList.add("vacina-card")
              
-            // card.innerHTML = `
-            //   <h4>${campanha.nome} - ${campanha.id}</h4>
-            //   <p>Endereço: ${campanha.bairro}, ${campanha.cidade}, ${campanha.estado}</p>
-            //   <button id="btn-excluir" class="btn-excluir" onclick="excluirCampanha(${index})">Excluir</button>
-            // `
+            card.innerHTML = `
+              <h4>${campanha.titulo} - ${campanha.id}</h4>
+              <p>Data Inícial: ${formatarData(campanha.data_inicio)}</p>
+              <p>Data Fim: ${formatarData(campanha.data_fim)}</p>
+              <p>Local: ${posto_info.bairro}, ${posto_info.cidade}, ${posto_info.pais}</p>
+              <button id="btn-excluir" class="btn-excluir" onclick="excluirCampanha(${campanha.id})">Excluir</button>
+            `
             grid_campanha.appendChild(card)
           })
           modulo_historico_campanhas.appendChild(grid_campanha)
         } else {
-          modulo_historico_campanhas.innerHTML = "<h3>Não há campanhas criadas por este posto</h3>"
+          modulo_historico_campanhas.innerHTML = `<h3 style="text-align: center;">Não há campanhas criadas por este posto</h3>`
         }
       } catch(error){
         console.error(error)
       }
     }
   }
-  
-  excluirCampanha = (index) => {
-    if (confirm("Tem certeza que deseja excluir esta campanha do seu histórico?")) {
-      campanhas.splice(index, 1)
-      renderizarCampanhas()
-    }
-  }
-    
+
   renderizarCampanhas()  
 })
 
@@ -216,8 +239,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   
       const dados_estatisticos = await resposta.json()
       
-      
-      
       container.innerHTML = `
         <div class="vacinas-total">
           <h3>Total de Vacinas</h3>	
@@ -227,7 +248,6 @@ document.addEventListener("DOMContentLoaded", async () => {
           <canvas id="grafico_mensal"></canvas>
         </div>
       `
-      
       const ctx = document.getElementById('grafico_mensal').getContext('2d')
       new Chart(ctx, {
         type: 'bar',
@@ -264,7 +284,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (usuario_json) {
       const usuario = JSON.parse(usuario_json)
       
-      const campanha = coletarDadosCampanha(usuario.posto_de_saude)
+      const campanha = coletarDadosCampanha(usuario.id)
       
       if (!campanha) {
         alert('Preencha todos os campos obrigatórios!')
@@ -272,8 +292,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       
       try {
-        // await cadastrarCampanha(campanha)
-        console.log(campanha) 
+        await cadastrarCampanha(campanha)
         alert('Campanha cadastrada com sucesso!')
         window.location.reload()
       } catch (erro) {
@@ -283,14 +302,14 @@ document.addEventListener("DOMContentLoaded", () => {
   })
 })
 
-function coletarDadosCampanha() {
-  const titulo_campanha = document.getElementById('nome_campanha').value
-  const descricao_campanha = document.getElementById('descricao_campanha').value
-  const data_registro_inicio_campanha = document.getElementById('data_registro_inicio_campanha').value
-  const data_registro_final_campanha = document.getElementById('data_registro_final_campanha').value
+function coletarDadosCampanha(owner_id) {
+  const titulo = document.getElementById('nome_campanha').value
+  const descricao = document.getElementById('descricao_campanha').value
+  const data_inicio = document.getElementById('data_registro_inicio_campanha').value
+  const data_fim = document.getElementById('data_registro_final_campanha').value
   const publico_alvo = document.getElementById('publico_alvo').value
-
-  return { titulo_campanha, descricao_campanha, data_registro_inicio_campanha, data_registro_final_campanha, publico_alvo }
+  
+  return { titulo, descricao, data_inicio, data_fim, owner_id, publico_alvo }
 }
 
 async function cadastrarCampanha(dadosCampanha) {

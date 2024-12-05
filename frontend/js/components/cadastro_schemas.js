@@ -35,6 +35,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     try {
       await cadastrarPaciente(paciente)
       redirecionar('../dashboard/tela_inicio_paciente.html')
+      window.location.reload()
     } catch (erro) {
       alert('Erro ao cadastrar paciente.')
     }
@@ -57,6 +58,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     try {
       await cadastrarPosto(posto)
       redirecionar("../dashboard/tela_inicio_posto.html")
+      window.location.reload()
     } catch (erro) {
       alert('Erro ao cadastrar posto.')
     }

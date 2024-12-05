@@ -6,9 +6,10 @@
   <title>Sistema Unificado de Gestão para Postos de Saúde</title>
   <link rel="stylesheet" href="../../css/base/styles.css">
   <link rel="stylesheet" href="../../css/pages/inicio.css">
+  <link rel="stylesheet" href="../../css/pages/cadastro.css">
   <link rel="shortcut icon" href="../../images/logos/icone.ico" type="image/x-icon">
 </head>
-<body data-page="home">
+<body data-page="atualizar">
   <header>
     <nav>
       <div class="busca-elementos">
@@ -53,53 +54,31 @@
     <li><button id="logout">Sair</button></li>
   </ul>
   <main>
-    <section id="informacoes-paciente" class="info-container"></section>
-    <section id="informacoes-paciente-vacina" class="info-container-vacina">
-    </section>
-    <section id="informacoes-paciente-dados" class="info-container-dados">
-      <h3>Total de vacinas</h3>
-    </section>
-    <section id="" class="info-container-vacina">
-      <h2>Registro de Vacina</h2>
+    <section id="" class="info-container-vacina ">
+      <h2>Atualizar Dados</h2>
         <form action="#" method="post">
-          <label for="nome_registro_vacina">Nome da Vacina:</label>
-          <div class="form-row row">
-            <input type="text" id="nome_registro_vacina" name="nome" required placeholder="Digite o nome da vacina">
-          </div>
-          
-          <label for="data_registro_vacina">Data:</label>
-          <div class="form-row row">
-            <input type="date" id="data_registro_vacina" name="data_registro_vacina" required>
-          </div>
-
-          <label for="dose">Quantidade da Dose (mL):</label>
-          <div class="form-row row">
-            <input type="text" id="dose" name="dose" step="0.01" min="0" required placeholder="Digite a quantidade da dose">
-          </div>
-          
-          <label for="unidade_medica">Unidade Médica:</label>
-          <div class="form-row row">
-            <input type="text" id="unidade_medica" name="unidade_medica" required placeholder="Digite o nome da unidade médica">
-          </div>
-          
-          <button type="submit">Registrar</button>
+          <label for="nome" style="margin: 0;">Seu Nome: <span class="importante">*</span></label>
+          <input type="text" id="nome" name="nome" placeholder="Nome Completo">
+          <label for="email">Seu Email: <span class="importante">*</span></label>
+          <input type="email" id="email" name="email" placeholder="Email">
+          <label for="celular">Seu Celular: <span class="importante">*</span></label>
+          <input type="tel" id="celular" name="celular" pattern="[0-9]{2} [0-9]{5}-[0-9]{4}" placeholder="Celular ou Telefone">
+          <div class="file-upload-container">
+            <label for="file-input" class="file-label">
+              Clique Aqui Para Adicionar Sua Foto
+            </label>
+            <input type="file" id="file-input" name="foto" accept="image/*" style="display: none;">
+            <div id="preview">
+              <p id="file-name">Nenhuma imagem selecionada</p>
+              <img id="preview-img" src="" alt="Pré-visualização da imagem" style="max-width: 100%; display: none;">
+            </div>
+          </div> 
+          <button type="submit" class="btn-avancar" style="width: 100%;">Atualizar</button>
         </form>
     </section>
   </main>
-  <footer class="baixo-inicio">
-    <span>
-      <a href="../pages/termos.html" target="_blank" rel="noopener noreferrer">Termos</a>
-      ,
-      <a href="../pages/politica_privacidade.html" target="_blank">Política de Privacidade</a>
-    </span>
-    <span>
-      <p>&copy; 2024 Sistema Unificado de Gestão para Postos de Saúde</p>
-    </span>
-  
-  </footer>
   <script src="../../js/pages/inicio.js"></script>
-  <script src="../../js/pages/busca.js"></script>
   <script src="../../js/components/paginacao.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="../../js/pages/atualizacao.js"></script>
 </body>
 </html>

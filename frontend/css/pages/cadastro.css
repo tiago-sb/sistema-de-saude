@@ -76,6 +76,7 @@ div:nth-child(2) form div.radio-escolha label {
   color: var(--cor-branco);
 }
 
+#nome, #email, #senha, #celular, 
 .formulario-cadastro input[type="text"],
 .formulario-cadastro input[type="email"],
 .formulario-cadastro input[type="password"],

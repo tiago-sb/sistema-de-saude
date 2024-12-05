@@ -35,3 +35,23 @@ document.addEventListener("DOMContentLoaded", () => {
     })
   })
 })
+
+document.addEventListener("DOMContentLoaded", () => {
+  const input_arquivo = document.getElementById("file-input")
+  const preview_imgagem = document.getElementById("preview-img")
+  const nome_documento = document.getElementById("file-name")
+
+  input_arquivo.addEventListener("change", (event) => {
+    const file = event.target.files[0]
+    if (file) {
+      nome_documento.textContent = file.name
+
+      const reader = new FileReader()
+      reader.onload = () => {
+        preview_imgagem.src = reader.result
+        preview_imgagem.style.display = "block"
+      }
+      reader.readAsDataURL(file)
+    }
+  })
+})
