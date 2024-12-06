@@ -52,7 +52,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const data_formatada = formatarData(paciente.data_nascimento)
     
     container.innerHTML = `
-      <img src="${foto_padrao}" alt="Imagem de perfil">
+      <img src="${usuario.url_profile || foto_padrao}" alt="Imagem de perfil"
+        style="
+        display: inline-block;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+        " />
       <h3>${usuario.nome_completo}</h3>
       <p>Data de Nascimento: ${data_formatada}</p>
       <p>Tipo Sanguíneo: ${paciente.tipo_sanguineo}</p>
@@ -74,7 +84,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const foto_padrao = "../../images/icones/user.png"
   
   container.innerHTML = `
-    <img src="${foto_padrao}" alt="Imagem de perfil do Posto">
+   <img src="${posto_json.url_profile || foto_padrao}" alt="Imagem de perfil"
+        style="
+        display: inline-block;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+        " />
     <h3>${posto_json.nome_completo}</h3>
     <p>${posto_json.posto_de_saude.bairro}, ${posto_json.posto_de_saude.cidade}, ${posto_json.posto_de_saude.estado}</p>
   `
